@@ -1,14 +1,16 @@
 <template>
  <NuxtPage />
 </template>
-<style>
-.page-enter-active,
-.page-leave-active {
-  transition: all 0.4s;
-}
-.page-enter-from,
-.page-leave-to {
-  opacity: 0;
-  filter: blur(1rem);
-}
-</style>
+<script setup>
+useSeoMeta({
+  title: 'TheAlphaOnes Docs',
+  description: 'Explore documentation for all tools by TheAlphaOnes.',
+  ogTitle: 'TheAlphaOnes Docs',
+  ogDescription: 'Dev tool documentation by TheAlphaOnes.',
+  ogImage: '/og.png',
+  ogType: 'website',
+  twitterCard: 'summary_large_image',
+  twitterSite: '@thenormvg',
+  themeColor: '#18171C',
+})
+</script>
