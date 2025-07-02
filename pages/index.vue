@@ -74,6 +74,17 @@ margin: 25px;
 }
 
 
+@media only screen and (max-width: 768px) {
+.doc-list{
+/* border: 1px solid salmon; */
+width: 100%;
+
+
+margin: 0px;
+
+}
+}
+
 
 
 </style>

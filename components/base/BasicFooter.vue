@@ -3,7 +3,7 @@
 <template>
 
   <div id="footer">
-    <div id="f-head">Made with ❤️ By <NuxtLink>TheAlphaOnes</NuxtLink></div>
+    <div id="f-head">Made with ❤️ By <NuxtLink to="https://taohq.org">TheAlphaOnes</NuxtLink></div>
     <div id="f-sub">
       <NuxtLink to="https://x.com/TheNormVg"> twitter </NuxtLink>
       •

@@ -9,7 +9,7 @@ const MarkdownConfig = {
           file: "cook/cook-intro.md",
           type: "tool",
           sub:  "introduction to cook dev tool"
-        },
+        }
       ],
     },
     {

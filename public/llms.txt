@@ -1,0 +1,9 @@
+# LLM Manifest
+> List of documentation pages for LLMs and dev tools.
+
+## Cook
+- https://docs.taohq.org/docs/cook/cook-intro — introduction to cook dev tool
+
+## Aura
+- https://docs.taohq.org/docs/aura/aura-intro — introduction to aura ai
+- https://docs.taohq.org/docs/aura/aura-customize — customize the aura ai personality

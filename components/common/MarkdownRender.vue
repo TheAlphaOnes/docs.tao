@@ -38,7 +38,9 @@ const html = computed(() => renderMarkdown(props.md))
   white-space: pre-line;
 }
 
-
+.markdown-content img{
+  border-radius: 5px;
+}
 
 @media only screen and (max-width: 768px) {
 

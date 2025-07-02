@@ -49,19 +49,19 @@ const fullPath = `${domain}${route.fullPath}`
 
 
 const title = `${name.replace(/-/g, ' ')} | ${slug.toUpperCase()} Docs | TheAlphaOnes`
-const desc = `Documentation for ${name.replace(/-/g, ' ')} under the ${slug} tool by TheAlphaOnes.`
+const desc = `Guide and Documentation for ${name.replace(/-/g, ' ')} under the ${slug} tool by TheAlphaOnes.`
 
 useSeoMeta({
   title,
   description: desc,
   ogTitle: title,
   ogDescription: desc,
-  ogImage: '/og.png',
+  ogImage: 'https://docs.taohq.org/og.png',
   ogUrl: fullPath,
   twitterCard: 'summary_large_image',
   twitterTitle: title,
   twitterDescription: desc,
-  twitterImage: '/og.png'
+  twitterImage: 'https://docs.taohq.org/og.png'
 })
 
 </script>
