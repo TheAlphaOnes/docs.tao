@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://docs.taohq.org/sitemap.xml
