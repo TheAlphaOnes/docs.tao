@@ -76,7 +76,7 @@ margin: 25px;
 
 @media only screen and (max-width: 768px) {
 .doc-list{
-border: 1px solid salmon;
+
 max-width: 100%;
 
 
