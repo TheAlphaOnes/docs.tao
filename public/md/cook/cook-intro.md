@@ -1,7 +1,7 @@
 
 
 <p align="center">
-  <img src="image.png" alt="Cook CLI Banner" width="100%">
+  <img src="assets-md/image.png" alt="Cook CLI Banner" width="100%">
 </p>
 
 <h1 align="center"> Cook – The All-in-One CLI for Lazy Devs</h1>
