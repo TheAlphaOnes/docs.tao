@@ -1,75 +1,131 @@
-# Nuxt Minimal Starter
+## 📘 TheAlphaOnes Docs Platform
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Welcome to the official documentation system for all tools and services by **TheAlphaOnes**.
 
-## Setup
+This platform is built to keep our tool docs **modular**, **clean**, and **easy to maintain** — powered by Markdown and Nuxt.
 
-Make sure to install dependencies:
+---
 
-```bash
-# npm
-npm install
+## 🗂 Directory Structure
 
-# pnpm
-pnpm install
+```
+/public
+├── md/
+│   ├── aura/
+│   │   ├── aura-intro.md
+│   │   └── aura-customize.md
+│   └── cook/
+│       └── cook-intro.md
+├── assets-md/
+│   └── image.png
+├── favicon.ico
+├── favicon.svg
+├── og.png
+└── robots.txt
 
-# yarn
-yarn install
-
-# bun
-bun install
+/md.config.js
 ```
 
-## Development Server
+---
 
-Start the development server on `http://localhost:3000`:
+## ✍️ How to Add a New Doc
 
-```bash
-# npm
-npm run dev
+### 1. **Create your Markdown file**
 
-# pnpm
-pnpm dev
+Place the `.md` file inside the appropriate tool/service folder under `/public/md`.
 
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
+Example:
 
 ```bash
-# npm
-npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
+public/md/cook/setup-cook.md
 ```
 
-Locally preview production build:
+### 2. **Update `md.config.js`**
 
-```bash
-# npm
-npm run preview
+Register the new doc in the `MarkdownConfig` like this:
 
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
+```js
+{
+  name: "Cook",
+  items: [
+    {
+      name: "Intro to cook",
+      link: "cook-intro",
+      file: "cook/cook-intro.md",
+      type: "tool",
+      sub: "introduction to cook dev tool"
+    },
+    {
+      name: "Setup Cook",
+      link: "setup-cook",
+      file: "cook/setup-cook.md",
+      type: "tool",
+      sub: "how to setup and configure cook"
+    }
+  ]
+}
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+| Field  | Description                                 |
+| ------ | ------------------------------------------- |
+| `name` | Display title of the doc                    |
+| `link` | URL-friendly slug (used in route)           |
+| `file` | Relative path from `public/md/`             |
+| `type` | `tool` or `service` (for filtering/styling) |
+| `sub`  | Short subtitle or description for list UI   |
+
+---
+
+## 🖼 Using Images
+
+Place image assets in:
+
+```
+/public/assets-md/
+```
+
+Use them in Markdown like:
+
+```md
+![Alt text](/assets-md/image.png)
+```
+
+---
+
+## 🔗 Routing Convention
+
+A doc registered as:
+
+```js
+{
+  name: "customize aura",
+  link: "aura-customize",
+  file: "aura/aura-customize.md"
+}
+```
+
+Will be accessible at:
+
+```
+/docs/aura/aura-customize
+```
+
+---
+
+## 📄 Notes
+
+* All markdown files must live under `public/md/{tool}/`.
+* All config entries must be lowercase-safe in `link` for routing.
+* You can preview local changes immediately without rebuilding.
+
+---
+
+## 🧠 Tips
+
+* Keep titles short and clear.
+* Use `##` and `###` headings properly for structure.
+* Use `sub` descriptions to make the UI feel organized and scannable.
+
+---
+
+Made with ❤️ by [TheAlphaOnes](https://thealphaones.dev)
