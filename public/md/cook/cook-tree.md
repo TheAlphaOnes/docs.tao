@@ -51,7 +51,7 @@ username@Userpc:~/Project$ cook tree
 <hr>
 <br>
 
-# Flags : ```--dir```, ```--exclude```
+# Arguments : ```--dir```, ```--exclude```
 
 
 ### ``` --dir <path>```

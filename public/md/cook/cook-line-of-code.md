@@ -72,7 +72,7 @@ Cook LOC Module
 <hr>
 <br>
 
-# Flags : ```dir```, ```exclude```
+# Arguments : ```dir```, ```exclude```
 
 ### ``` --dir```
 Specifies the root directory to begin scanning from.
@@ -107,7 +107,7 @@ Total Line Of Code: 12588
 <hr>
 
 ### ```--exclude```
-```exclude``` flag ignores the file type you want not to be scanned for line of code.
+```exclude``` argument ignores the file type you want not to be scanned for line of code.
 
 
 
