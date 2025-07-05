@@ -53,10 +53,10 @@ If you add something like closed.txt or your own custom restrictive license, tha
 <br>
 <br>
 
-# Flags : ```list```, ```gen```, ```show```
+# Arguments : ```list```, ```gen```, ```show```
 
 ### ```--list```
-The ```list``` flag displays all available **open-source license** templates built into the cook CLI.
+The ```list``` arg displays all available **open-source license** templates built into the cook CLI.
 
 It lets you quickly see which licenses you can choose from when generating a new license file.
 ```bash
@@ -77,7 +77,7 @@ LICENCE LIST
 
 ### ```--gen```
 
-The ```gen``` flag generates a license file based on the selected license and drops it into your current working directory.
+The ```gen``` arg generates a license file based on the selected license and drops it into your current working directory.
 
 ```bash
 username@Userpc:~/Project$ cook licence gen
@@ -102,7 +102,7 @@ LICENSE file created successfully.
 <hr>
 
 ### ```--show```
-The ```show``` flag lets you preview any license template before applying it to your project.
+The ```show``` arg lets you preview any license template before applying it to your project.
 
 You can browse the exact contents of a license (like MIT, GPL, Apache, etc.) and read its terms.
 

@@ -37,9 +37,9 @@ TEMPLATE
 <hr>
 <br>
 
-# Flags: ```add```, ```list```, ```use```, ```show```
+# Arguments : ```add```, ```list```, ```use```, ```show```
 ## ```--add```
-The add subcommand allows you to create and save a new custom mold (template) from your current working directory.
+The ```add``` arg allows you to create and save a new custom mold (template) from your current working directory.
 
 This mold captures the structure, tools, configurations, and files in your project — and lets you reuse it across other projects by simply "molding" it in again.
 
