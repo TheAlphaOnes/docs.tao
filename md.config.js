@@ -34,7 +34,7 @@ const MarkdownConfig = {
         {
           name: "cook-license",
           link: "cook-license",
-          file: "cook/license.md",
+          file: "cook/cook-license.md",
           type: "command",
           sub: "Command to manage project licensing",
         },

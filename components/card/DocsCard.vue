@@ -17,10 +17,14 @@ const props = defineProps({
 
 <template>
 <NuxtLink :to="props.link">
-  <div class="docs-card">
+  <div class="docs-card" :title="props.sub">
     <div class="dc-head"> {{ props.head }}</div>
-    <div class="dc-sub">{{ props.sub}}</div>
     <div :class="props.type === 'tool'? 'dc-type dc-type-blue':'dc-type dc-type-pink' ">{{ props.type }}</div>
+    <div class="dc-sub" :title="props.sub">
+      <span>
+        {{ props.sub}}
+      </span>
+  </div>
   </div>
 </NuxtLink>
 </template>
@@ -59,14 +63,21 @@ text-decoration: none;
   font-size: 15px;
   background-color: var(--bg4);
   border-radius: 5px;
-
+  width: calc(100% - 20px);
   padding:  0px 10px;
-
   display: flex;
   align-items: center;
   justify-content: flex-start;
   /* min-width: 80px; */
+  margin-top: 5px;
 
+}
+
+.dc-sub span{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
 }
 
 .dc-type-pink{
@@ -94,16 +105,17 @@ text-decoration: none;
 .dc-type{
 
   transition: all ease-in-out 300ms;
-  width: 45px;
+  min-width: 45px;
+  width: fit-content;
   padding: 2px 5px;
-  font-weight: 700;
+  font-weight: 500;
   font-size: 13px;
   font-family: var(--font-k2d);
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius:5px ;
-
+  margin-top: -30px;
   margin-left: auto;
   /* margin-right: 15px; */
 }
