@@ -104,7 +104,7 @@ const toggleSideBar = () => {
 }
 
 #sp-box{
-  width: 80%;
+  width: 100%;
 }
 #sidebar-box {
   width: 20%;

@@ -1,133 +1,121 @@
-# © LICENSE
+# Mold
+<p>Enables developers to create and manage custom project templates tailored to their specific workflows and technology preferences. This feature allows you to define your own reusable "stacks"—complete with a custom name, type, and version—which can then be listed, organized, and applied across multiple projects. It empowers teams to maintain consistency in setup, enforce internal conventions, and accelerate development by reusing predefined configurations, tools, and file structures, all while preserving flexibility for unique project requirements.</p>
 
-The ```licence``` command helps you manage **open-source licenses** for your project.
-You can list available licenses, choose one to apply or get a preview of the any available license.
-
-## The ```licenses``` :
-
-| License Name             | Open Source          | TL;DR                                                              |
-| ------------------------ | -------------------- | ------------------------------------------------------------------ |
-| **MIT**                  | ✅ Yes                | Super permissive. Use it, modify it, just keep the license notice. |
-| **Apache 2.0**           | ✅ Yes                | Like MIT but adds a patent grant. Safe for businesses.             |
-| **GPL-3.0**              | ✅ Yes                | Copy-left. If you distribute, your code must also be open.         |
-| **LGPL-3.0**             | ✅ Yes                | Lighter GPL—used often in libraries.                               |
-| **BSD 2-Clause**         | ✅ Yes                | Simple, permissive, similar to MIT.                                |
-| **BSD 3-Clause**         | ✅ Yes                | Like BSD-2 but adds "No endorsement" clause.                       |
-| **MPL-2.0**              | ✅ Yes                | Weak copy-left. Only modified files must be open.                  |
-| **Unlicense / none.txt** | ✅ (or Public Domain) | Total freedom. No conditions.                                      |
-
+<br>
 <hr>
 <br>
-<br>
 
-#  What Isn't Open Source?
-If you add something like closed.txt or your own custom restrictive license, that’s **not open-source** unless it explicitly grants the four freedoms:
 
-* To use
-* To study
-* To modify
-* To distribute
+# What is a template?
 
-<hr>
-<br>
-<br>
+<p>A template represents a reusable stack configuration that you either create or select for a specific project. It serves as a foundational blueprint tailored to your project’s unique requirements. Each template is defined by four key attributes:</p>
 
-# How ```licence``` works?
+* **Name** – A custom identifier that helps you recognize and manage your template.
+* **Category** – A classification (e.g., frontend, backend, full-stack, DevOps) that organizes templates by their use case or domain.
+* **Version** – A user-defined version number that enables version control and iterative improvements to your template over time.
+* **Stack** – The actual set of tools, technologies, configurations, and files that make up the core of your development environment.
+
+<p>Templates allow developers to streamline onboarding, maintain consistency across teams, and rapidly spin up projects with a predefined structure that aligns with their workflow or architectural preferences.</p>
 
 ```bash
-
-[✔] Fetching available licenses...
-[✔] Displaying interactive selection menu
-    → Choose from: MIT, GPL-3.0, Apache-2.0, BSD-2-Clause, etc.
-
-[✔] Selected: MIT License
-[✔] Injecting copyright...
-    © 2025 Akshat – All rights reserved (MIT)
-
-[✔] Writing LICENSE file to current directory: ./LICENSE
-
-📄 License successfully generated!
-
+TEMPLATE
+├── Name
+│   └── A unique identifier for the template
+│
+├── Category
+│   └── Project type or domain (e.g., frontend, backend, devops)
+│
+├── Version
+│   └── Custom version tag for tracking and iteration
+│
+└── Stack
+    ├── tool-1 (e.g., Vue, Django, Docker)
+    ├── tool-2 (e.g., ESLint, Prettier, PostgreSQL)
+    └── tool-3 (e.g., Nginx, Redis, TailwindCSS)
 ```
+<br>
 <hr>
 <br>
-<br>
 
-# Flags : ```list```, ```gen```, ```show```
+# Flags: ```add```, ```list```, ```use```, ```show```
+## ```--add```
+The add subcommand allows you to create and save a new custom mold (template) from your current working directory.
 
-### ```--list```
-The ```list``` flag displays all available **open-source license** templates built into the cook CLI.
+This mold captures the structure, tools, configurations, and files in your project — and lets you reuse it across other projects by simply "molding" it in again.
 
-It lets you quickly see which licenses you can choose from when generating a new license file.
+## What It Does:
+* Scans your current directory.
+* Packages it into a reusable mold.
+
+**Lets you define:**
+
+* ```--name``` : A unique identifier for your mold.
+* ```--category``` : The kind of project this mold applies to (e.g., frontend, backend).
+* ```--version``` : A tag to track iterations of the mold.
+* ```--stack``` : The actual tooll set you'll be using.
+
+<hr>
+
+
+### ```--name```
+Defines a custom name for your template, so you can easily identify and reuse it later.
+
+**If not provided, the system will prompt you to enter one interactively.**
+
+### Example:
 ```bash
-username@Userpc:~/Project$ cook licence list
+username@Userpc:~/Project$ cook mold add
 
-LICENCE LIST
-  1. APACHE-2
-  2. BSD-2
-  3. BSD-3
-  4. CLOSED
-  5. GPL
-  6. LGPL
-  7. MIT
-  8. MPL-2
-  9. BASIC
+template name : Project1
 ```
 <hr>
 
-### ```--gen```
+### ```--category```
+Categorizes the mold by its purpose or domain — for example:
+frontend, backend, fullstack, api, infra, etc.
 
-The ```gen``` flag generates a license file based on the selected license and drops it into your current working directory.
-
+Helps in organizing and filtering templates later.
+### Example:
 ```bash
-username@Userpc:~/Project$ cook licence gen
+username@Userpc:~/Project$ cook mold add
 
-[?] Please select a license for your project: 
- > APACHE-2
-   BSD-2
-   BSD-3
-   CLOSED
-   GPL
-   LGPL
-   MIT
-   MPL-2
-   BASIC
-```
-Then you write the name you want in the license.
-```bash
-Selected license: APACHE-2
-Please enter your project name: NAME
-LICENSE file created successfully.
+template name : Project1
+
+template category : frontend
 ```
 <hr>
 
-### ```--show```
-The ```show``` flag lets you preview any license template before applying it to your project.
+### ```--version```
+Assigns a version number to your template for tracking changes, updates, or releases.
 
-You can browse the exact contents of a license (like MIT, GPL, Apache, etc.) and read its terms.
+Follows semantic versioning (1.0.0, 2.1.3, etc.) or any custom format you prefer.
 
 ```bash
-username@Userpc:~/Project$ cook licence show
+username@Userpc:~/Project$ cook mold add
 
-[?] Please select a license for your project: 
-   APACHE-2
-   BSD-2
-   BSD-3
-   CLOSED
-   GPL
-   LGPL
-   MIT
-   MPL-2
- >  BASIC
-```
-It will show you the preview of the selected license.
-```bash
-Selected license: BASIC
-Copyright 2025 PROJECT NAME                                                                                                     
+template name : Project1
 
-This is free and unencumbered software released into the public domain.                                                         
+template category : frontend
 
-Anyone is free to copy, modify, publish, use, compile, sell, or distribute this software, either in source code form or as a    
-compiled binary, for any purpose, commercial or non-commercial, and by any means......................
+templat version : 0.0.1
 ```
 <hr>
+
+### ```--stack```
+
+Specifies the list of technologies, tools, or components that make up the core of your mold.
+
+```bash
+username@Userpc:~/Project$ cook mold add
+
+template name : Project1
+
+template category : frontend
+
+template version : 0.0.1
+
+template stack : nuxt
+```
+<hr>
+
+
