@@ -1,6 +1,7 @@
 <script setup>
 import BasicPage from '~/components/base/BasicPage.vue';
 import MarkdownRender from '~/components/common/MarkdownRender.vue';
+import Breadcrumbs from '~/components/common/Breadcrumbs.vue';
 
 
 import { useRoute } from 'vue-router'
@@ -10,33 +11,47 @@ import { useMarkdownFile } from '~/composables/useMarkdownFile'
 import BasicSideBarPage from '~/components/base/BasicSideBarPage.vue';
 
 const route = useRoute()
-const { slug, name } = route.params
+const slug = computed(() => route.params.slug)
+const name = computed(() => route.params.name)
 
 const { rawMarkdown, errorMsg, loadMarkdown } = useMarkdownFile()
 
 const { docsData, error } = await useDocsIndex()
 
-
-// console.log(docsData.value);
-
 onMounted(async () => {
-
-  await loadMarkdown(docsData.value, slug, name)
-
-
+  await loadMarkdown(docsData.value, slug.value, name.value)
 })
 
 
 const sideBarName = computed(()=>{
-  return `${slug} Docs`
+  return `${slug.value} Docs`
 })
 
 
 const sideBarItem = computed(()=>{
-  const tool = docsData.value.md.find(item => item.name === slug)
-  // console.log(tool);
+  if (!docsData.value || !docsData.value.md) return []
+  const tool = docsData.value.md.find(item => item.name === slug.value)
+  return tool?.items || []
+})
 
-  return tool.items
+// Breadcrumbs computation
+const breadcrumbItems = computed(() => {
+  if (!docsData.value || !docsData.value.md) return []
+
+  const tool = docsData.value.md.find(item => item.name.toLowerCase() === slug.value.toLowerCase())
+  if (!tool) return []
+
+  const docItem = tool.items.find(item => item.link === name.value)
+
+  return [
+    {
+      label: tool.name || slug.value,
+      to: `/docs/${slug.value}/${tool.items[0]?.link || ''}`
+    },
+    {
+      label: docItem?.name || name.value.replace(/-/g, ' ')
+    }
+  ]
 })
 
 
@@ -48,8 +63,8 @@ const domain = `${url.protocol}//${url.host}` // → works on localhost, vercel,
 const fullPath = `${domain}${route.fullPath}`
 
 
-const title = `${name.replace(/-/g, ' ')} | ${slug.toUpperCase()} Docs | TheAlphaOnes`
-const desc = `Guide and Documentation for ${name.replace(/-/g, ' ')} under the ${slug} tool by TheAlphaOnes.`
+const title = `${name.value.replace(/-/g, ' ')} | ${slug.value.toUpperCase()} Docs | TheAlphaOnes`
+const desc = `Guide and Documentation for ${name.value.replace(/-/g, ' ')} under the ${slug.value} tool by TheAlphaOnes.`
 
 useSeoMeta({
   title,
@@ -69,7 +84,7 @@ useSeoMeta({
 <template>
   <BasicSideBarPage :is-page="!errorMsg" :side-bar-name="sideBarName" :side-bar-item="sideBarItem" :current-link="name">
       <main>
-
+        <Breadcrumbs :items="breadcrumbItems" />
         <MarkdownRender :md="rawMarkdown"/>
       </main>
   </BasicSideBarPage>

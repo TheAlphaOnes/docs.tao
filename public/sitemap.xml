@@ -2,14 +2,46 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://docs.taohq.org/docs/cook/cook-intro</loc>
-    <lastmod>2025-07-02T07:35:14.679Z</lastmod>
+    <lastmod>2025-10-28T16:15:53.434Z</lastmod>
   </url>
   <url>
-    <loc>https://docs.taohq.org/docs/aura/aura-intro</loc>
-    <lastmod>2025-07-02T07:35:14.680Z</lastmod>
+    <loc>https://docs.taohq.org/docs/cook/cook-installation</loc>
+    <lastmod>2025-10-28T16:15:53.435Z</lastmod>
   </url>
   <url>
-    <loc>https://docs.taohq.org/docs/aura/aura-customize</loc>
-    <lastmod>2025-07-02T07:35:14.680Z</lastmod>
+    <loc>https://docs.taohq.org/docs/cook/cook-quickstart</loc>
+    <lastmod>2025-10-28T16:15:53.435Z</lastmod>
+  </url>
+  <url>
+    <loc>https://docs.taohq.org/docs/cook/cook-auth</loc>
+    <lastmod>2025-10-28T16:15:53.435Z</lastmod>
+  </url>
+  <url>
+    <loc>https://docs.taohq.org/docs/cook/cook-bake</loc>
+    <lastmod>2025-10-28T16:15:53.435Z</lastmod>
+  </url>
+  <url>
+    <loc>https://docs.taohq.org/docs/cook/cook-cmd</loc>
+    <lastmod>2025-10-28T16:15:53.435Z</lastmod>
+  </url>
+  <url>
+    <loc>https://docs.taohq.org/docs/cook/cook-init</loc>
+    <lastmod>2025-10-28T16:15:53.435Z</lastmod>
+  </url>
+  <url>
+    <loc>https://docs.taohq.org/docs/cook/cook-mold</loc>
+    <lastmod>2025-10-28T16:15:53.435Z</lastmod>
+  </url>
+  <url>
+    <loc>https://docs.taohq.org/docs/cook/cook-run</loc>
+    <lastmod>2025-10-28T16:15:53.435Z</lastmod>
+  </url>
+  <url>
+    <loc>https://docs.taohq.org/docs/cook/cook-tool</loc>
+    <lastmod>2025-10-28T16:15:53.435Z</lastmod>
+  </url>
+  <url>
+    <loc>https://docs.taohq.org/docs/cook/cook-version</loc>
+    <lastmod>2025-10-28T16:15:53.435Z</lastmod>
   </url>
 </urlset>

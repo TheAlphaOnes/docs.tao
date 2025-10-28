@@ -1,7 +1,10 @@
 <template>
  <NuxtPage />
+ <Analytics />
 </template>
 <script setup>
+  import { Analytics } from '@vercel/analytics/nuxt'
+
 useSeoMeta({
   title: 'TheAlphaOnes Docs',
   description: 'Explore documentation for all tools by TheAlphaOnes.',

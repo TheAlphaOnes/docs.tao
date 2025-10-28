@@ -2,8 +2,14 @@
 > List of documentation pages for LLMs and dev tools.
 
 ## Cook
-- https://docs.taohq.org/docs/cook/cook-intro — introduction to cook dev tool
-
-## Aura
-- https://docs.taohq.org/docs/aura/aura-intro — introduction to aura ai
-- https://docs.taohq.org/docs/aura/aura-customize — customize the aura ai personality
+- https://docs.taohq.org/docs/cook/cook-intro — Introduction to the Cook dev tool
+- https://docs.taohq.org/docs/cook/cook-installation — How to install Cook
+- https://docs.taohq.org/docs/cook/cook-quickstart — Get started with Cook quickly
+- https://docs.taohq.org/docs/cook/cook-auth — Authentication command
+- https://docs.taohq.org/docs/cook/cook-bake — Bake command
+- https://docs.taohq.org/docs/cook/cook-cmd — Command utilities
+- https://docs.taohq.org/docs/cook/cook-init — Initialize a new project
+- https://docs.taohq.org/docs/cook/cook-mold — Mold project files/templates
+- https://docs.taohq.org/docs/cook/cook-run — Run command
+- https://docs.taohq.org/docs/cook/cook-tool — Tool utilities
+- https://docs.taohq.org/docs/cook/cook-version — Version command

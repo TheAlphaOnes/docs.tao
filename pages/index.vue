@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import BasicCenterTitle from '~/components/base/BasicCenterTitle.vue';
 import BasicPage from '~/components/base/BasicPage.vue';
 import DocsCard from '~/components/card/DocsCard.vue';
