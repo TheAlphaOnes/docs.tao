@@ -42,6 +42,7 @@ a{
   transition: all ease-in-out 300ms;
   font-size: 20px;
   margin-bottom: 5px;
+  width: max-content;
 }
 
 .sbl-item:hover{

@@ -44,49 +44,98 @@ if (error.value) {
 
 <style scoped>
 
-#title-page{
-margin: 90px 0px;
+* {
+  box-sizing: border-box;
+}
 
+#title-page{
+  margin: 90px 0px 60px;
+  width: 100%;
 }
 
 .doc-list{
-width: calc(100vw - 100px);
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-justify-content: center;
-gap: 10px;
-margin: 25px;
+  max-width: 1400px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+  margin: 0 auto 60px;
+  padding: 0 25px;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 .dl-head{
-  font-size: 20px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: rgba(255, 255, 255, 0.9);
+  margin-bottom: 10px;
+  position: relative;
+  padding-left: 12px;
+}
+
+.dl-head::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 60%;
+  background: var(--red);
+  border-radius: 2px;
 }
 
 .dl-items{
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-  flex-wrap: wrap;
-
-
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(320px, 100%), 1fr));
+  gap: 20px;
+  width: 100%;
 }
-
 
 @media only screen and (max-width: 768px) {
-.doc-list{
+  #title-page{
+    margin: 60px 0px 40px;
+    padding: 0 20px;
+  }
 
-max-width: 100%;
+  .doc-list{
+    padding: 0 10px;
+    gap: 15px;
+    margin-bottom: 40px;
+  }
 
+  .dl-head{
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
 
-/* padding: 0px auto; */
-
-margin: 25px auto;
-
+  .dl-items{
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
 }
+
+@media only screen and (max-width: 480px) {
+  #title-page{
+    padding: 0 10px;
+  }
+
+  .doc-list{
+    padding: 0 5px;
+  }
+
+  .dl-head{
+    font-size: 16px;
+    padding-left: 10px;
+  }
+
+  .dl-items{
+    gap: 12px;
+  }
 }
-
-
 
 </style>
