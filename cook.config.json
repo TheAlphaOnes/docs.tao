@@ -1,0 +1,24 @@
+{
+    "name": "DOCS.TAO",
+    "author": "thenormvg",
+    "stir": true,
+    "cmd": {
+        "serve": [
+            "pnpm run dev"
+        ],
+        "build": [
+            "pnpm run build"
+        ],
+        "clean": [
+            "pnpm"
+        ]
+    },
+    "template": {
+        "name": "",
+        "category": "",
+        "date": "",
+        "author": "",
+        "stack": [],
+        "github": ""
+    }
+}

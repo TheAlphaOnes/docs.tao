@@ -13,7 +13,7 @@ Welcome to the Cook CLI documentation! Cook is a Swiss Army knife for developers
 - **[Authentication](authentication.md)** - Login and manage your account
 - **[Template Management](templates.md)** - Create, share, and use templates
 - **[Command Execution](command-execution.md)** - Run and automate commands
-- **[Global Commands](global-commands.md)** - User-level command system
+- **[Sys Commands](sys-commands.md)** - User-level command system
 
 ### Command Reference
 - **[cook init](commands/init.md)** - Initialize a new project
@@ -42,7 +42,7 @@ Welcome to the Cook CLI documentation! Cook is a Swiss Army knife for developers
 - [Create a template](commands/mold.md#create)
 - [Use a template](commands/bake.md)
 - [Run commands with hot reload](commands/run.md#hot-reload)
-- [Add global commands](commands/cmd.md#global-add)
+- [Add sys commands](commands/cmd.md#sys-add)
 - [Count lines of code](commands/tool.md#loc)
 
 ### Common Workflows

@@ -8,6 +8,7 @@
 - https://docs.taohq.org/docs/cook/cook-auth — Authentication command
 - https://docs.taohq.org/docs/cook/cook-bake — Bake command
 - https://docs.taohq.org/docs/cook/cook-cmd — Command utilities
+- https://docs.taohq.org/docs/cook/cook-cmd-complete — Shell completions for Cook commands
 - https://docs.taohq.org/docs/cook/cook-init — Initialize a new project
 - https://docs.taohq.org/docs/cook/cook-mold — Mold project files/templates
 - https://docs.taohq.org/docs/cook/cook-run — Run command

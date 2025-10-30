@@ -126,7 +126,7 @@ cook version
 ### 1.0.0 - Initial Release
 - Template management (create, use, list, show, update)
 - Command execution with hot reload
-- Global command system
+- Sys command system
 - Development tools (loc, tree, licence, status)
 - Authentication system
 - Error handling
@@ -150,7 +150,7 @@ cook --help
 # Command-specific help
 cook auth --help
 cook mold --help
-cook cmd global --help
+cook cmd sys --help
 cook tool --help
 ```
 

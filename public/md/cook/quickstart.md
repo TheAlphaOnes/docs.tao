@@ -7,7 +7,7 @@ Get up and running with Cook CLI in 5 minutes!
 Before you start, make sure you have:
 - Python 3.8+ installed
 - Git installed
-- A Cook account (sign up at [cook.thealpha.one](https://cook.thealpha.one))
+- A Cook account (sign up at [cook.taohq.org](https://cook.taohq.org))
 
 ## Installation
 
@@ -145,13 +145,13 @@ Version: 1.0.0
 ✅ Template created successfully!
 ```
 
-### Global Commands
+### Sys Commands
 
 Create commands that work across all projects:
 
 ```bash
-# Add a global command
-$ cook cmd global add
+# Add a sys command
+$ cook cmd sys add
 
 Enter command name: server
 Enter description: Quick HTTP server
@@ -160,12 +160,12 @@ Enter commands (one per line, empty line to finish):
 Command 1: python -m http.server 8000
 Command 2:
 
-✔ Added global command: server
+✔ Added sys command: server
 
 # Run it anywhere
-$ cook cmd global run
+$ cook cmd sys run
 
-Select global command to run:
+Select sys command to run:
 > server — Quick HTTP server
 
 → Executing: python -m http.server 8000
@@ -195,10 +195,10 @@ cook mold create         # Create template
 cook mold use            # Use template
 cook mold list           # List templates
 
-# Global Commands
-cook cmd global add      # Add global command
-cook cmd global run      # Run global command
-cook cmd global list     # List global commands
+# Sys Commands
+cook cmd sys add      # Add sys command
+cook cmd sys run      # Run sys command
+cook cmd sys list     # List sys commands
 
 # Development Tools
 cook tool loc            # Count lines of code
@@ -269,7 +269,7 @@ Now that you're up and running, explore more features:
 
 - **[Template Management](templates.md)** - Deep dive into templates
 - **[Command Execution](command-execution.md)** - Advanced command usage
-- **[Global Commands](global-commands.md)** - User-level automation
+- **[Sys Commands](sys-commands.md)** - User-level automation
 - **[Workflows](workflows.md)** - Real-world examples
 - **[Tool Commands](commands/tool.md)** - Development utilities
 
@@ -279,7 +279,7 @@ Now that you're up and running, explore more features:
    ```bash
    cook --help
    cook mold --help
-   cook cmd global --help
+   cook cmd sys --help
    ```
 
 2. **Hot reload for development** - Always use `--hot` during development:
@@ -287,9 +287,9 @@ Now that you're up and running, explore more features:
    cook run dev --hot
    ```
 
-3. **Global commands for common tasks** - Add frequently used commands as global:
+3. **Sys commands for common tasks** - Add frequently used commands as sys:
    ```bash
-   cook cmd global add
+   cook cmd sys add
    # Name: cleanup
    # Commands: docker system prune -f
    #          npm cache clean --force

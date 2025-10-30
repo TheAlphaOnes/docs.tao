@@ -61,7 +61,7 @@ $ cook auth login --key xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 ### Getting Your Connection Key
 
-1. Visit the Cook platform: [cook.thealpha.one](https://cook.thealpha.one)
+1. Visit the Cook platform: [cook.taohq.org](https://cook.taohq.org)
 2. Sign up or log in to your account
 3. Navigate to Settings → API Keys
 4. Copy your connection key
@@ -227,7 +227,7 @@ fi
 
 ```bash
 # Step 1: Get your key from the platform
-# Visit: cook.thealpha.one → Settings → API Keys
+# Visit: cook.taohq.org → Settings → API Keys
 
 # Step 2: Login
 $ cook auth login

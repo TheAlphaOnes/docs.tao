@@ -523,7 +523,7 @@ Use shell features:
 
 - **[cook cmd list](cmd.md#list)** - List all command groups
 - **[cook init](init.md)** - Initialize cook.config.json
-- **[cook cmd global](cmd.md#global)** - Manage global commands
+- **[cook cmd sys](cmd.md#sys)** - Manage sys commands
 
 ## See Also
 

@@ -46,6 +46,13 @@ const MarkdownConfig = {
           sub: "Command utilities",
         },
         {
+          name: "cmd complete",
+          link: "cook-cmd-complete",
+          file: "cook/commands/cmd-complete.md",
+          type: "command",
+          sub: "Shell completions for Cook commands",
+        },
+        {
           name: "init",
           link: "cook-init",
           file: "cook/commands/init.md",
