@@ -1,5 +1,4 @@
 <script setup>
-import "~/assets/github-markdown-dark.css";
 import BasicNotFound from "./BasicNotFound.vue";
 import BasicHeader from "./BasicHeader.vue";
 import BasicFooter from "./BasicFooter.vue";

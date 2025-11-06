@@ -1,66 +1,66 @@
-# cook mold
+# Cook mold
 
-Template management commands - create, use, list, show, and update templates.
+Template management for creating, uploading, and managing project templates.
 
-## Synopsis
-
-```bash
-cook mold <subcommand> [OPTIONS]
-```
-
-## Description
-
-The `cook mold` command group manages templates in Cook CLI. Use these commands to create templates from your projects, browse available templates, use templates in new projects, and update existing templates.
-
-## Subcommands
-
-| Command | Description |
-|---------|-------------|
-| `create` | Create a new template from current directory |
-| `use` | Interactively select and use a template |
-| `list` | List all available templates |
-| `show` | Show detailed information about a template |
-| `update` | Update an existing template |
-
----
-
-## cook mold create {#create}
-
-Create a template from your current directory and upload it to the Cook platform.
-
-### Synopsis
+## Usage
 
 ```bash
-cook mold create
+cook mold [COMMAND]
 ```
 
-### Description
+## Commands
 
-Creates a template package from your current directory, excluding common build artifacts and dependencies, then uploads it to the Cook platform for reuse.
+### mold list
 
-### Interactive Workflow
+List all your available templates stored in the Cook platform.
+
+```bash
+$ cook mold list
+[success] Getting user templates
+
+User Templates:
+
+📦 cook/@vue/vue
+   Name: vue | Category: vue | Version: 3.5.22 | Public: True
+   Stack: vue, js, pinia, css, pnpm
+
+📦 cook/@nuxt/nuxt-v4
+   Name: nuxt-v4 | Category: nuxt | Version: 4.1.2 | Public: True
+   Stack: vue, nuxt, js, ts, css, pnpm
+
+📦 cook/@nuxt/nuxt-v3
+   Name: nuxt-v3 | Category: nuxt | Version: 3.20.0 | Public: True
+   Stack: nuxt, vue, js, ts, css, pnpm
+```
+
+### mold create
+
+Create a new template from the current directory or a selected directory.
 
 ```bash
 $ cook mold create
 
-📦 Creating template from: /Users/you/projects/my-app
+📦 Creating template from: /home/developer/projects/my-app
 
-Template name: react-vite-starter
-Category:
-> web
-  mobile
-  backend
-  cli
-  other
+How would you like to select the directory?
+> Choose from list
+  Enter directory path manually
 
-Description: Modern React starter with Vite and TypeScript
-Tech stack: react,typescript,vite,tailwindcss
-GitHub repository: https://github.com/you/react-vite-starter
+Template name: my-awesome-template
+Enter template category: web
+
+Description: My awesome template for React projects
+Tech stack (Enter empty line to finish):
+1 $ : react
+2 $ : typescript
+3 $ : vite
+4 $ :
+
+GitHub repository: https://github.com/developer/my-awesome-template
 Version: 1.0.0
 
 📦 Packing template...
-⏳ Compressing files (excluding node_modules, .git, dist)...
-✅ Template packed: react-vite-starter.tar.zst (2.3 MB)
+✅ Template packed: my-awesome-template.tar.zst (2.3 MB)
 
 📤 Uploading template...
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100% 2.3/2.3 MB
@@ -68,514 +68,193 @@ Version: 1.0.0
 
 ✅ Template created successfully!
 
-Template ID: yourname/@web/react-vite-starter
-Share: cook bake yourname/@web/react-vite-starter
+Template ID: developer/@web/my-awesome-template
 ```
 
-### Template Categories
+### mold use
 
-- **web** - Web applications (React, Vue, Next.js, etc.)
-- **mobile** - Mobile apps (React Native, Flutter)
-- **backend** - Backend services (APIs, servers)
-- **cli** - Command-line tools
-- **other** - Libraries, utilities, other projects
-
-### Excluded Files
-
-Cook automatically excludes:
-- `node_modules/`
-- `.git/`
-- `dist/`, `build/`
-- `.next/`, `.nuxt/`
-- `__pycache__/`, `*.pyc`
-- `.DS_Store`
-- `*.log`
-
-### Requirements
-
-- Must be authenticated: `cook auth login`
-- Directory must contain meaningful project files
-- Template name must be unique
-
-### Examples
-
-**Example 1: Create React Template**
-
-```bash
-$ cd ~/projects/my-react-starter
-$ cook mold create
-
-Template name: modern-react-starter
-Category: web
-Description: React + TypeScript + Vite + Tailwind CSS
-Tech stack: react,typescript,vite,tailwindcss,eslint
-GitHub: https://github.com/you/modern-react-starter
-Version: 1.0.0
-
-✅ Template created: yourname/@web/modern-react-starter
-```
-
-**Example 2: Create Backend Template**
-
-```bash
-$ cd ~/projects/fastapi-template
-$ cook mold create
-
-Template name: fastapi-rest-api
-Category: backend
-Description: FastAPI REST API with PostgreSQL
-Tech stack: fastapi,python,postgresql,docker
-GitHub: https://github.com/you/fastapi-template
-Version: 1.0.0
-
-✅ Template created: yourname/@backend/fastapi-rest-api
-```
-
----
-
-## cook mold use {#use}
-
-Interactively browse and select a template to use in your current directory.
-
-### Synopsis
-
-```bash
-cook mold use
-```
-
-### Description
-
-Browse available templates, view details, and select one to apply to your current directory. This is the interactive alternative to `cook bake`.
-
-### Interactive Workflow
+Download and use an existing template to create a new project.
 
 ```bash
 $ cook mold use
 
-Select a template:
-> alice/@web/react-vite-starter — Modern React with Vite
-  bob/@backend/fastapi-template — FastAPI REST API
-  charlie/@mobile/react-native-expo — React Native Expo
+Choose a template to use:
+> cook/@vue/vue — Vue.js template with Pinia
+  cook/@nuxt/nuxt-v4 — Nuxt 4 template
+  cook/@nuxt/nuxt-v3 — Nuxt 3 template
 
-Show details for: alice/@web/react-vite-starter
+📋 Template Information:
+┌─────────────┬──────────────────────────────────┐
+│ Name        │ vue                              │
+│ Category    │ vue                              │
+│ Version     │ 3.5.22                           │
+│ Stack       │ vue, js, pinia, css, pnpm        │
+│ Author      │ cook                             │
+│ Public      │ True                             │
+└─────────────┴──────────────────────────────────┘
 
-Name: react-vite-starter
-Author: alice
-Description: Modern React starter with Vite
-Tech Stack: react, typescript, vite, tailwindcss
-Version: 1.0.0
+Do you want to continue with this template? (y/N): y
 
-Use this template? (y/n): y
+[success] Downloading template...
+Enter the project folder name: my-vue-project
 
-📥 Downloading template...
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
-✅ Template downloaded!
-
-🍳 Baking template...
-✅ Template baked successfully!
+[success] Extracting template files...
+✅ Template extracted to: my-vue-project
 ```
 
-### Examples
+**Direct usage with template ID:**
+```bash
+cook mold use cook/@vue/vue
+```
 
-**Example 1: Browse and Select**
+### mold show
+
+Show detailed information about a specific template.
 
 ```bash
-$ mkdir my-new-project
-$ cd my-new-project
-$ cook mold use
+$ cook mold show
 
-# Browse templates
-# View details
-# Select and apply
+Choose a template to see:
+> cook/@vue/vue — Vue.js template
+  cook/@nuxt/nuxt-v4 — Nuxt 4 template
+  cook/@nuxt/nuxt-v3 — Nuxt 3 template
+
+📋 Template Details:
+┌─────────────┬──────────────────────────────────┐
+│ ID          │ cook/@vue/vue                    │
+│ Name        │ vue                              │
+│ Category    │ vue                              │
+│ Version     │ 3.5.22                           │
+│ Author      │ cook                             │
+│ Stack       │ vue, js, pinia, css, pnpm        │
+│ GitHub      │ https://github.com/cook/vue      │
+│ Public      │ True                             │
+│ Downloads   │ 1,234                            │
+│ Created     │ 2024-01-15                       │
+└─────────────┴──────────────────────────────────┘
+
+📖 Description:
+A modern Vue.js template with Pinia for state management,
+optimized for rapid development with best practices.
 ```
 
-**Example 2: Quick Start Workflow**
+### mold update
 
-```bash
-# Create directory and apply template
-mkdir my-app && cd my-app && cook mold use
-```
-
----
-
-## cook mold list {#list}
-
-List all available templates on the Cook platform.
-
-### Synopsis
-
-```bash
-cook mold list
-```
-
-### Description
-
-Displays all public templates grouped by category.
-
-### Output
-
-```bash
-$ cook mold list
-
-Available templates:
-
-Web (@web):
-  alice/@web/react-vite-starter — Modern React with Vite
-    Tech: react, typescript, vite, tailwindcss
-    Downloads: 1,234 | Version: 1.0.0
-
-  bob/@web/vue3-typescript — Vue 3 + TypeScript starter
-    Tech: vue, typescript, vite
-    Downloads: 856 | Version: 2.1.0
-
-  charlie/@web/next-tailwind — Next.js with Tailwind CSS
-    Tech: nextjs, react, typescript, tailwindcss
-    Downloads: 2,341 | Version: 1.5.0
-
-Backend (@backend):
-  bob/@backend/fastapi-template — FastAPI REST API
-    Tech: fastapi, python, postgresql, docker
-    Downloads: 645 | Version: 1.2.0
-
-  david/@backend/express-typescript — Express + TypeScript
-    Tech: express, typescript, postgresql
-    Downloads: 892 | Version: 1.0.0
-
-Mobile (@mobile):
-  charlie/@mobile/react-native-expo — React Native Expo
-    Tech: react-native, expo, typescript
-    Downloads: 423 | Version: 1.3.0
-
-CLI (@cli):
-  emma/@cli/python-cli-typer — Python CLI with Typer
-    Tech: python, typer, click
-    Downloads: 234 | Version: 1.0.0
-
-Total: 7 templates
-```
-
-### Use Cases
-
-- Discover available templates
-- Compare template popularity
-- Find templates by category
-- Check template versions
-
----
-
-## cook mold show {#show}
-
-Display detailed information about a specific template.
-
-### Synopsis
-
-```bash
-cook mold show <template_name>
-```
-
-### Arguments
-
-- **template_name**: Full template identifier (`username/@category/name`)
-
-### Output
-
-```bash
-$ cook mold show alice/@web/react-vite-starter
-
-╔═══════════════════════════════════════════════════════════╗
-║                     Template Details                      ║
-╚═══════════════════════════════════════════════════════════╝
-
-Template Name: react-vite-starter
-Author: alice
-Category: web
-Description: Modern React starter with Vite, TypeScript, and Tailwind CSS
-
-Tech Stack:
-  • react
-  • typescript
-  • vite
-  • tailwindcss
-  • eslint
-  • prettier
-
-Version: 1.0.0
-Created: 2024-01-15
-Last Updated: 2024-03-20
-
-Statistics:
-  Downloads: 1,234
-  Stars: 89
-
-Repository: https://github.com/alice/react-vite-starter
-
-Installation:
-  cook bake alice/@web/react-vite-starter
-
-Template Contents:
-  • src/ - Source code
-  • public/ - Public assets
-  • package.json - Dependencies
-  • vite.config.ts - Vite configuration
-  • tsconfig.json - TypeScript config
-  • tailwind.config.js - Tailwind CSS config
-```
-
-### Examples
-
-**Example 1: View Template Details**
-
-```bash
-$ cook mold show bob/@backend/fastapi-template
-
-# Shows full template information
-```
-
-**Example 2: Before Using Template**
-
-```bash
-# Check details first
-$ cook mold show alice/@web/react-vite-starter
-
-# Then use it
-$ cook bake alice/@web/react-vite-starter
-```
-
----
-
-## cook mold update {#update}
-
-Update an existing template you own.
-
-### Synopsis
-
-```bash
-cook mold update
-```
-
-### Description
-
-Update the metadata or files of a template you've created. You can update description, tech stack, version, or upload new files.
-
-### Interactive Workflow
+Update an existing template with new metadata or re-upload the template files.
 
 ```bash
 $ cook mold update
 
-Select template to update:
-> yourname/@web/react-vite-starter
-  yourname/@backend/api-template
+How would you like to select the directory?
+> Choose from list
+  Enter directory path manually
 
-Selected: yourname/@web/react-vite-starter
+Updating template: developer/@web/my-awesome-template
 
-Current description: Modern React starter with Vite
-New description: Modern React starter with Vite, TypeScript, and Tailwind CSS
+📋 Current Template Data:
+┌─────────────┬──────────────────────────────────┐
+│ Name        │ my-awesome-template              │
+│ Category    │ web                              │
+│ Version     │ 1.0.0                            │
+│ Stack       │ react, typescript, vite          │
+│ GitHub      │ https://github.com/developer/template  │
+└─────────────┴──────────────────────────────────┘
 
-Current tech stack: react,typescript,vite
-New tech stack: react,typescript,vite,tailwindcss,eslint
+✏️  Update Template Information
+Press Enter to keep current value, or type new value
 
-Current version: 1.0.0
-New version: 1.1.0
+Version (1.0.0): 1.1.0
+GitHub URL (https://github.com/developer/template): https://github.com/developer/updated-template
 
-Update files from current directory? (y/n): y
+Current stack: react, typescript, vite
+Stack (Enter empty line to keep current):
+1 $ : react
+2 $ : typescript
+3 $ : vite
+4 $ : tailwindcss
+5 $ :
 
-📦 Packing updated template...
-✅ Template packed: react-vite-starter.tar.zst (2.5 MB)
+📦 Do you want to re-upload the template folder? (y/N): y
 
-📤 Uploading updated template...
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 100%
-✅ Template updated successfully!
+🔄 Re-uploading template...
+[success] Regenerating cook.readme.md...
+[success] Compressing template folder...
+[success] Uploading new template...
+[success] Updating template metadata...
+
+✓ Template metadata updated successfully!
+🗑️  Cleaning up old template file...
+✓ Old template file removed from bucket
+
+🎉 Template update completed!
 ```
 
-### What You Can Update
+## Description
 
-- Template description
-- Tech stack list
-- Version number
-- Template files (from current directory)
-- GitHub repository URL
+The `mold` commands manage project templates that can be shared and reused across different projects. Templates are compressed, uploaded to the Cook platform, and can be downloaded by anyone with access.
 
-### Version Guidelines
+## Template Structure
 
-Follow semantic versioning:
-- **Major** (2.0.0): Breaking changes
-- **Minor** (1.1.0): New features
-- **Patch** (1.0.1): Bug fixes
+Templates include:
+- **Project files**: All your project source code and configuration
+- **cook.config.json**: Project configuration and template metadata
+- **cook.readme.md**: Auto-generated template documentation
+- **Metadata**: Name, category, version, tech stack, GitHub link
 
-### Examples
+## Template ID Format
 
-**Example 1: Update Metadata Only**
-
-```bash
-$ cook mold update
-
-# Select your template
-# Update description and tech stack
-# Skip file upload
+Templates use a hierarchical ID system:
+```
+username/@category/template-name
 ```
 
-**Example 2: Update Files and Version**
-
-```bash
-# Make changes to your project
-$ cd ~/projects/my-template
-
-# Update template with new files
-$ cook mold update
-
-# Update version to 1.1.0
-# Update files: y
-```
-
-**Example 3: Patch Release**
-
-```bash
-# Fix bugs in your template
-$ cd ~/projects/my-template
-$ # ... make fixes ...
-
-$ cook mold update
-# Version: 1.0.0 → 1.0.1
-# Files: y
-```
-
----
+Examples:
+- `cook/@vue/vue-starter`
+- `alice/@web/react-typescript`
+- `bob/@mobile/flutter-app`
 
 ## Authentication Required
 
-All template operations except `list` and `show` require authentication:
+Most mold commands require authentication:
+- **create**: Upload templates to your account
+- **list**: View your personal templates
+- **show**: View template details (personal templates)
+- **update**: Modify your templates
+- **use**: Download templates (public templates work without auth)
 
-```bash
-# Login first
-$ cook auth login
+## Template Categories
 
-# Then use template commands
-$ cook mold create
-$ cook mold update
-```
+Common categories include:
+- `@web`: Web applications and websites
+- `@mobile`: Mobile applications
+- `@backend`: Server and API projects
+- `@desktop`: Desktop applications
+- `@cli`: Command-line tools
+- `@lib`: Libraries and packages
 
-## Best Practices
+## Options
 
-### 1. Clean Before Creating
+### create
+No additional options (interactive mode only)
 
-```bash
-# Remove build artifacts
-rm -rf node_modules dist build
+### use
+- `template_id`: Optional template ID to use directly
 
-# Then create template
-cook mold create
-```
+### list
+No additional options
 
-### 2. Use Meaningful Names
+### show
+No additional options (interactive mode only)
 
-```bash
-# Good names
-react-vite-typescript-starter
-fastapi-postgresql-docker
-flutter-firebase-template
+### update
+No additional options (interactive mode only)
 
-# Avoid
-template1
-mytemplate
-test
-```
+## Notes
 
-### 3. Detailed Descriptions
-
-```bash
-# Good description
-"Modern React starter with Vite, TypeScript, Tailwind CSS, ESLint, and Prettier configured"
-
-# Avoid
-"React template"
-```
-
-### 4. List Tech Stack
-
-```bash
-# Include all major technologies
-react,typescript,vite,tailwindcss,eslint,prettier,vitest
-```
-
-### 5. Version Properly
-
-```bash
-# Start at 1.0.0
-# Use semantic versioning
-# Update version on changes
-```
-
-### 6. Include README
-
-Always include a README.md in your template explaining:
-- What's included
-- Setup instructions
-- How to use
-- Prerequisites
-
-## Troubleshooting
-
-### Not Authenticated
-
-```bash
-$ cook mold create
-❌ Error: Not authenticated
-```
-
-**Solution:**
-```bash
-cook auth login
-```
-
-### Template Name Already Exists
-
-```bash
-$ cook mold create
-Template name: react-starter
-❌ Error: Template name already exists
-```
-
-**Solution:**
-- Choose a different name
-- Add version or variant to name
-- Update existing template instead
-
-### Upload Failed
-
-```bash
-$ cook mold create
-❌ Error: Upload failed - network error
-```
-
-**Solution:**
-- Check internet connection
-- Try again
-- Use smaller template (< 50 MB)
-
-### Permission Denied
-
-```bash
-$ cook mold update
-❌ Error: You don't own this template
-```
-
-**Solution:**
-- Can only update your own templates
-- Create a new template instead
-- Contact template owner
-
-## Related Commands
-
-- **[cook bake](bake.md)** - Quick template usage
-- **[cook auth](auth.md)** - Authentication
-- **[cook init](init.md)** - Initialize project
-
-## See Also
-
-- [Template Management Guide](../templates.md)
-- [Template Workflows](../workflows.md#template-workflows)
-- [Creating Great Templates](../advanced.md#template-creation)
-
----
-
-**Next:** [cook cmd](cmd.md) - Command execution and management
+- Templates are compressed using zstandard for efficient storage
+- Template files respect `.gitignore` patterns during packaging
+- Public templates can be used by anyone without authentication
+- Private templates are only accessible to the template owner
+- Template updates can include metadata changes and/or file re-uploads
+- The Cook platform provides template discovery and sharing capabilities
+- Templates automatically generate documentation from metadata

@@ -1,5 +1,4 @@
 <script setup>
-import "~/assets/github-markdown-dark.css";
 // import MarkdownRender from "~/components/MarkdownRender.vue";
 import BasicNotFound from "./BasicNotFound.vue";
 import BasicHeader from "./BasicHeader.vue";

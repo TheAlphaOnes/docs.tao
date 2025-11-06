@@ -1,568 +1,372 @@
-# cook tool
+# Cook tool
 
-Development utilities for code analysis and project management.
+Development tools and utilities for common development tasks.
 
-## Synopsis
+## Usage
 
 ```bash
-cook tool <subcommand> [OPTIONS]
+cook tool [COMMAND]
+```
+
+## Commands
+
+### tool loc
+
+Count lines of code in the current directory, respecting `.gitignore` patterns.
+
+```bash
+$ cook tool loc
+    Line Of Code
+┌────────────┬──────┐
+│ *.md       │ 4321 │
+│ *.json     │ 201  │
+│ License    │ 17   │
+│ *.txt      │ 1215 │
+│ *.spec     │ 54   │
+│ *.py       │ 4439 │
+│ *.vue      │ 6    │
+│ *.yaml     │ 8447 │
+│ .gitignore │ 20   │
+│ *.ts       │ 12   │
+│ *.mjs      │ 5    │
+└────────────┴──────┘
+Total Line Of Code: 18737
+```
+
+**With exclusions:**
+```bash
+cook tool loc node_modules dist
+```
+
+### tool tree
+
+Show directory tree structure with file sizes.
+
+```bash
+$ cook tool tree
+📂 /home/developer/projects/cook-cli
+┣━━ 📂 assets
+┃   ┣━━ 📂 licenses
+┃   ┃   ┣━━ 📄apache-2.txt (10.8 kB)
+┃   ┃   ┣━━ 📄bsd-2.txt (1.3 kB)
+┃   ┃   ┣━━ 📄bsd-3.txt (1.5 kB)
+┃   ┃   ┣━━ 📄closed.txt (54 bytes)
+┃   ┃   ┣━━ 📄gpl-3.txt (33.2 kB)
+┃   ┃   ┣━━ 📄lgpl-3.txt (8.5 kB)
+┃   ┃   ┣━━ 📄mit.txt (1.1 kB)
+┃   ┃   ┣━━ 📄mpl-2.txt (16.8 kB)
+┃   ┃   ┗━━ 📄none.txt (1.2 kB)
+┃   ┗━━ 📄status.json (7.8 kB)
+┣━━ 📂 cli
+┃   ┣━━ 📄api.py (1.2 kB)
+┃   ┣━━ 📄auth.py (1.0 kB)
+┃   ┣━━ 📄bite.py (877 bytes)
+┃   ┣━━ 📄cleanup.py (136 bytes)
+┃   ┣━━ 📄cmd.py (2.2 kB)
+┃   ┣━━ 📄global_cmd.py (1.6 kB)
+┃   ┣━━ 📄ignite.py (140 bytes)
+┃   ┣━━ 📄layer.py (282 bytes)
+┃   ┣━━ 📄license.py (634 bytes)
+┃   ┣━━ 📄mold.py (1.5 kB)
+┃   ┣━━ 📄plate.py (277 bytes)
+┃   ┣━━ 📄slice.py (288 bytes)
+┃   ┣━━ 📄stir.py (128 bytes)
+┃   ┣━━ 📄tool.py (3.5 kB)
+┃   ┗━━ 📄tunnel.py (207 bytes)
+┣━━ 📂 docs
+┃   ┗━━ 📂 commands
+┃       ┣━━ 📄auth.md (2.4 kB)
+┃       ┣━━ 📄cmd.md (3.1 kB)
+┃       ┣━━ 📄init.md (2.2 kB)
+┃       ┣━━ 📄sys.md (3.5 kB)
+┃       ┗━━ 📄version.md (677 bytes)
+┣━━ 📂 handlers
+┃   ┣━━ 📂 auth
+┃   ┃   ┗━━ 📄auth.py (4.0 kB)
+┃   ┣━━ 📂 cleanup
+┃   ┃   ┗━━ 📄cleanup.py (46 bytes)
+┃   ┣━━ 📂 cmd
+┃   ┃   ┣━━ 📄cmd.py (11.3 kB)
+┃   ┃   ┣━━ 📄global_cmd.py (3.3 kB)
+┃   ┃   ┗━━ 📄watcher.py (10.2 kB)
+┃   ┣━━ 📂 ignite
+┃   ┃   ┗━━ 📄ignite.py (52 bytes)
+┃   ┣━━ 📂 layer
+┃   ┃   ┗━━ 📄layer.py (152 bytes)
+┃   ┣━━ 📂 license
+┃   ┃   ┣━━ 📄licence_helper.py (75.9 kB)
+┃   ┃   ┗━━ 📄license.py (1.7 kB)
+┃   ┣━━ 📂 mold
+┃   ┃   ┣━━ 📄mold.py (17.8 kB)
+┃   ┃   ┗━━ 📄mold_helper.py (10.8 kB)
+┃   ┣━━ 📂 plate
+┃   ┃   ┗━━ 📄plate.py (169 bytes)
+┃   ┣━━ 📂 slice
+┃   ┃   ┗━━ 📄slice.py (72 bytes)
+┃   ┣━━ 📂 stir
+┃   ┃   ┗━━ 📄stir.py (219 bytes)
+┃   ┣━━ 📂 tool
+┃   ┃   ┣━━ 📄status.py (13.4 kB)
+┃   ┃   ┗━━ 📄tool.py (0 bytes)
+┃   ┣━━ 📂 tunnel
+┃   ┃   ┗━━ 📄tunnel.py (124 bytes)
+┃   ┣━━ 📄__init__.py (0 bytes)
+┃   ┣━━ 📄backend.py (7.3 kB)
+┃   ┣━━ 📄config.py (3.1 kB)
+┃   ┣━━ 📄const.py (1.8 kB)
+┃   ┣━━ 📄error_handler.py (5.3 kB)
+┃   ┣━━ 📄loc.py (3.9 kB)
+┃   ┣━━ 📄packer.py (1.8 kB)
+┃   ┣━━ 📄pyprompt.py (11.1 kB)
+┃   ┣━━ 📄tree.py (2.1 kB)
+┃   ┣━━ 📄user.py (1.6 kB)
+┃   ┗━━ 📄utils.py (522 bytes)
+┣━━ 📂 template_test
+┃   ┣━━ 📂 public
+┃   ┃   ┣━━ 📄favicon.ico (4.3 kB)
+┃   ┃   ┗━━ 📄robots.txt (24 bytes)
+┃   ┣━━ 📂 server
+┃   ┃   ┗━━ 📄tsconfig.json (49 bytes)
+┃   ┣━━ 📄app.vue (87 bytes)
+┃   ┣━━ 📄cook.config.json (728 bytes)
+┃   ┣━━ 📄cook.readme.md (898 bytes)
+┃   ┣━━ 📄eslint.config.mjs (120 bytes)
+┃   ┣━━ 📄nuxt.config.ts (266 bytes)
+┃   ┣━━ 📄package.json (692 bytes)
+┃   ┣━━ 📄pnpm-lock.yaml (346.4 kB)
+┃   ┣━━ 📄README.md (822 bytes)
+┃   ┗━━ 📄tsconfig.json (94 bytes)
+┣━━ 📂 test_project
+┃   ┗━━ 📄cook.config.json (512 bytes)
+┣━━ 📄cook.config.json (788 bytes)
+┣━━ 📄cook.spec (1.4 kB)
+┣━━ 📄LICENSE (1.1 kB)
+┣━━ 📄main.py (4.1 kB)
+┣━━ 📄README.md (10.8 kB)
+┣━━ 📄requirements.txt (96 bytes)
+┗━━ 📄WORKFLOWS.md (0 bytes)
+```
+
+**With exclusions:**
+```bash
+cook tool tree node_modules .git
+```
+
+### tool licence
+
+Manage project licenses with interactive prompts.
+
+```bash
+$ cook tool licence
+What would you like to do?
+> Generate licence
+  List licences
+  Show licence details
+
+# Interactive license generation
+Enter project name: My Awesome Project
+Enter author name: John Doe
+Select license type:
+> MIT License
+  Apache License 2.0
+  GNU GPL v3
+  BSD 3-Clause
+  ...
+
+License generated successfully: LICENSE
+```
+
+### tool status
+
+HTTP status code lookup and reference tool with comprehensive database of standard and unofficial codes.
+
+**Lookup specific status code:**
+```bash
+$ cook tool status 200
+
+200 - OK
+Category: Success
+Message: Request succeeded.
+
+$ cook tool status 404
+
+404 - Not Found
+Category: Client Error
+Message: Requested resource not found.
+
+$ cook tool status 500
+
+500 - Internal Server Error
+Category: Server Error
+Message: Unexpected server error.
+
+$ cook tool status 418
+
+418 - I'm a Teapot
+Category: Client Error
+Message: RFC joke code.
+```
+
+**Search status codes by name or message:**
+```bash
+$ cook tool status --search "not found"
+
+Search results for: 'not found'
+
+404 - Not Found
+Category: Client Error
+Message: Requested resource not found.
+
+$ cook tool status --search "success"
+
+Search results for: 'success'
+
+201 - Created
+Category: Success
+Message: Resource created successfully.
+```
+
+**Browse by category:**
+```bash
+$ cook tool status --category
+[?] Select a category::
+   Informational
+ > Success
+   Redirection
+   Client Error
+   Server Error
+   Unofficial
+   All
+
+HTTP Status Codes
+
+Success
+────────────────────────────────────────────────────────────
+  200 - OK
+        Request succeeded.
+  201 - Created
+        Resource created successfully.
+  202 - Accepted
+        Request accepted; processing pending.
+  203 - Non-Authoritative Information
+        Response from a transforming proxy.
+  204 - No Content
+        Request succeeded; no content returned.
+  205 - Reset Content
+        Client should reset its view.
+  206 - Partial Content
+        Partial GET due to range header.
+  207 - Multi-Status
+        WebDAV multi-status response.
+  208 - Already Reported
+        WebDAV members already enumerated.
+  226 - IM Used
+        Instance manipulations applied.
+
+Total: 10 status code(s)
+```
+
+**List all status codes:**
+```bash
+$ cook tool status --list
+
+HTTP Status Codes
+
+Informational
+────────────────────────────────────────────────────────────
+  100 - Continue
+        Client should continue with request.
+  101 - Switching Protocols
+        Server is switching protocols.
+  102 - Processing
+        Server is processing the request (WebDAV).
+  103 - Early Hints
+        Preload resources while final response prepares.
+
+Success
+────────────────────────────────────────────────────────────
+  200 - OK
+        Request succeeded.
+  201 - Created
+        Resource created successfully.
+  [... continues with all categories ...]
+
+Total: 68 status code(s)
+```
+
+**Interactive mode:**
+```bash
+$ cook tool status
+What would you like to do?
+> Lookup status code
+  Search status codes
+  Browse by category
+  List all status codes
+```
+
+**Error handling:**
+```bash
+$ cook tool status 999
+Status code 999 not found.
+
+$ cook tool status --search "xyz"
+No status codes found matching: xyz
 ```
 
 ## Description
 
-The `cook tool` command group provides development utilities for analyzing your codebase, generating project documentation, and managing project metadata.
-
-## Subcommands
-
-| Command | Description |
-|---------|-------------|
-| `loc` | Count lines of code in your project |
-| `tree` | Display directory structure as a tree |
-| `licence` | Add or update project license |
-| `status` | Show project status and information |
-
----
-
-## cook tool loc {#loc}
-
-Count lines of code in your project with detailed statistics.
-
-### Synopsis
-
-```bash
-cook tool loc [OPTIONS]
-```
-
-### Description
-
-Analyzes your project directory and provides statistics about lines of code, broken down by file type. Automatically excludes common build artifacts and dependencies.
-
-### Output
-
-```bash
-$ cook tool loc
-
-📊 Lines of Code Analysis
-
-Directory: /Users/you/projects/my-app
-
-JavaScript/TypeScript:
-  .js     1,234 lines (15 files)
-  .ts     2,456 lines (23 files)
-  .jsx      456 lines (8 files)
-  .tsx      789 lines (12 files)
-  ─────────────────────────────
-  Total:  4,935 lines (58 files)
-
-Python:
-  .py       567 lines (12 files)
-
-Markup/Styles:
-  .html     123 lines (3 files)
-  .css      456 lines (8 files)
-  .scss     234 lines (4 files)
-
-Configuration:
-  .json      89 lines (6 files)
-  .yaml      45 lines (3 files)
-
-Documentation:
-  .md       234 lines (5 files)
-
-═══════════════════════════════════
-Total:    6,683 lines (99 files)
-═══════════════════════════════════
-
-Excluded: node_modules, dist, .git
-```
-
-### Counted File Types
-
-- **Source Code**: `.js`, `.ts`, `.jsx`, `.tsx`, `.py`, `.rb`, `.go`, `.java`, `.c`, `.cpp`, `.rs`
-- **Markup**: `.html`, `.xml`, `.svg`
-- **Styles**: `.css`, `.scss`, `.sass`, `.less`
-- **Config**: `.json`, `.yaml`, `.yml`, `.toml`, `.ini`
-- **Documentation**: `.md`, `.mdx`, `.txt`
-
-### Excluded Directories
-
-- `node_modules/`
-- `dist/`, `build/`
-- `.git/`
-- `.next/`, `.nuxt/`
-- `__pycache__/`
-- `venv/`, `env/`
-
-### Examples
-
-**Example 1: Analyze Web Project**
-
-```bash
-$ cd ~/projects/my-react-app
-$ cook tool loc
-
-📊 Lines of Code Analysis
-
-TypeScript/JavaScript:
-  .tsx    3,456 lines (34 files)
-  .ts     1,234 lines (15 files)
-
-Styles:
-  .css      678 lines (12 files)
-
-Total:  5,368 lines (61 files)
-```
-
-**Example 2: Python Project**
-
-```bash
-$ cd ~/projects/my-api
-$ cook tool loc
-
-📊 Lines of Code Analysis
-
-Python:
-  .py     4,567 lines (45 files)
-
-Config:
-  .yaml      123 lines (8 files)
-
-Total:  4,690 lines (53 files)
-```
-
-### Use Cases
-
-- Track project size over time
-- Compare projects
-- Identify large files
-- Report project metrics
-- Pre-commit statistics
-
----
-
-## cook tool tree {#tree}
-
-Display your project's directory structure as a visual tree.
-
-### Synopsis
-
-```bash
-cook tool tree [OPTIONS]
-```
-
-### Description
-
-Generates a visual tree representation of your project's directory structure, excluding common build artifacts and dependencies.
-
-### Output
-
-```bash
-$ cook tool tree
-
-📁 Project Structure
-
-my-app/
-├── src/
-│   ├── components/
-│   │   ├── Header.tsx
-│   │   ├── Footer.tsx
-│   │   └── Layout.tsx
-│   ├── pages/
-│   │   ├── index.tsx
-│   │   └── about.tsx
-│   ├── styles/
-│   │   ├── globals.css
-│   │   └── components.css
-│   └── utils/
-│       └── helpers.ts
-├── public/
-│   ├── favicon.ico
-│   └── logo.svg
-├── package.json
-├── tsconfig.json
-├── vite.config.ts
-└── README.md
-
-Directories: 6
-Files: 13
-```
-
-### Options
-
-- Shows up to 3 levels deep by default
-- Excludes: `node_modules`, `.git`, `dist`, `build`
-- Icons: 📁 directories, 📄 files
-
-### Examples
-
-**Example 1: View Project Structure**
-
-```bash
-$ cd ~/projects/my-app
-$ cook tool tree
-
-# See visual directory layout
-```
-
-**Example 2: New Project Exploration**
-
-```bash
-$ cook bake alice/@web/react-starter
-$ cook tool tree
-
-# Understand template structure
-```
-
-### Use Cases
-
-- Understand project layout
-- Document project structure
-- Explore new projects
-- Verify template structure
-- Generate documentation
-
----
-
-## cook tool licence {#licence}
-
-Add or update your project's license file.
-
-### Synopsis
-
-```bash
-cook tool licence
-```
-
-### Description
-
-Interactively select and add a license to your project. Generates a `LICENSE` file with the selected license text and your information.
-
-### Interactive Workflow
-
-```bash
-$ cook tool licence
-
-Select a license:
-> MIT
-  Apache 2.0
-  BSD 3-Clause
-  BSD 2-Clause
-  GPL 3.0
-  LGPL 3.0
-  MPL 2.0
-  Unlicense
-  None (Proprietary)
-
-Selected: MIT
-
-Enter copyright holder: John Doe
-Enter year (default: 2024): 2024
-
-✅ LICENSE file created!
-
-📄 Generated: LICENSE (MIT License)
-```
-
-### Available Licenses
-
-| License | Description | Permissions |
-|---------|-------------|-------------|
-| **MIT** | Permissive, simple | ✅ Commercial use, modification, distribution |
-| **Apache 2.0** | Permissive with patent grant | ✅ Commercial use, patent grant |
-| **BSD 3-Clause** | Permissive, attribution | ✅ Commercial use, no endorsement |
-| **BSD 2-Clause** | Simplified BSD | ✅ Commercial use, simple |
-| **GPL 3.0** | Copyleft, strong | ⚠️ Must share source if distributed |
-| **LGPL 3.0** | Copyleft, library-friendly | ⚠️ Must share modifications |
-| **MPL 2.0** | Weak copyleft | ⚠️ File-level copyleft |
-| **Unlicense** | Public domain | ✅ Do anything |
-| **None** | Proprietary/Closed | ❌ All rights reserved |
-
-### Generated File
-
-Creates a `LICENSE` file in your project root:
-
-```
-MIT License
-
-Copyright (c) 2024 John Doe
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software...
-```
-
-### Examples
-
-**Example 1: MIT License**
-
-```bash
-$ cook tool licence
-
-Select: MIT
-Copyright holder: Alice
-Year: 2024
-
-✅ LICENSE created (MIT)
-```
-
-**Example 2: Apache 2.0**
-
-```bash
-$ cook tool licence
-
-Select: Apache 2.0
-Copyright holder: Acme Corp
-Year: 2024
-
-✅ LICENSE created (Apache 2.0)
-```
-
-**Example 3: Proprietary**
-
-```bash
-$ cook tool licence
-
-Select: None (Proprietary)
-Copyright holder: Private Company
-Year: 2024
-
-✅ LICENSE created (All Rights Reserved)
-```
-
-### When to Use
-
-- Starting a new project
-- Open-sourcing a private project
-- Updating license terms
-- Before creating a template
-- Before publishing to package registries
-
-### License Selection Guide
-
-**Choose MIT if:**
-- You want maximum freedom for users
-- You don't care how code is used
-- You want simplicity
-
-**Choose Apache 2.0 if:**
-- You have patent concerns
-- You need contributor agreement
-- Large organization/enterprise
-
-**Choose GPL 3.0 if:**
-- You want all derivatives to be open source
-- You're building on GPL code
-- You want to ensure freedom
-
-**Choose BSD 3-Clause if:**
-- You want permissive with attribution
-- You don't want endorsement without permission
-
-**Choose None (Proprietary) if:**
-- Closed source project
-- Commercial/private code
-- You retain all rights
-
----
-
-## cook tool status {#status}
-
-Show project status and information.
-
-### Synopsis
-
-```bash
-cook tool status
-```
-
-### Description
-
-Displays comprehensive information about your Cook project, including configuration, statistics, and health checks.
-
-### Output
-
-```bash
-$ cook tool status
-
-🍳 Cook Project Status
-
-Project Information:
-  Name: my-awesome-app
-  Author: johndoe
-  Version: 1.0.0
-  Description: My awesome application
-
-Cook Configuration:
-  Config File: ✅ cook.config.json found
-  Stir Mode: ✅ Enabled
-  Command Groups: 4 (dev, build, test, deploy)
-
-Git Status:
-  Repository: ✅ Initialized
-  Branch: main
-  Modified Files: 3
-  Untracked Files: 1
-
-Project Statistics:
-  Total Files: 127
-  Lines of Code: 6,683
-  Directories: 15
-
-Template Info:
-  Created From: alice/@web/react-starter
-  Template Version: 1.0.0
-
-Authentication:
-  Status: ✅ Logged in as johndoe
-
-Last Updated: 2024-03-20 14:32:15
-```
-
-### Information Displayed
-
-- Project metadata
-- Cook configuration
-- Git repository status
-- Project statistics
-- Template information
-- Authentication status
-
-### Use Cases
-
-- Quick project overview
-- Health check before operations
-- Debugging configuration issues
-- Project documentation
-
----
-
-## Common Workflows
-
-### Workflow 1: Project Analysis
-
-```bash
-# Get project overview
-$ cook tool status
-
-# Count lines of code
-$ cook tool loc
-
-# View structure
-$ cook tool tree
-```
-
-### Workflow 2: New Project Setup
-
-```bash
-# Initialize project
-$ cook init
-
-# Add license
-$ cook tool licence
-
-# View structure
-$ cook tool tree
-```
-
-### Workflow 3: Template Creation
-
-```bash
-# Analyze project
-$ cook tool loc
-$ cook tool tree
-
-# Add license if needed
-$ cook tool licence
-
-# Create template
-$ cook mold create
-```
-
-## Best Practices
-
-### 1. Add License Early
-
-```bash
-# Right after project creation
-$ cook init
-$ cook tool licence
-```
-
-### 2. Track Code Metrics
-
-```bash
-# Before major changes
-$ cook tool loc > metrics-before.txt
-
-# After changes
-$ cook tool loc > metrics-after.txt
-```
-
-### 3. Document Structure
-
-```bash
-# Generate tree for README
-$ cook tool tree > STRUCTURE.md
-```
-
-### 4. Regular Status Checks
-
-```bash
-# Before committing
-$ cook tool status
-$ git add .
-$ git commit
-```
-
-## Troubleshooting
-
-### No Project Found
-
-```bash
-$ cook tool status
-❌ Error: cook.config.json not found
-```
-
-**Solution:**
-```bash
-cook init
-```
-
-### Permission Denied
-
-```bash
-$ cook tool loc
-❌ Error: Permission denied reading files
-```
-
-**Solution:**
-- Check directory permissions
-- Run from project root
-- Ensure you own the files
-
-### Tree Too Deep
-
-```bash
-$ cook tool tree
-⚠️  Warning: Tree depth limited to 3 levels
-```
-
-**Solution:** This is normal - prevents overwhelming output
-
-## Related Commands
-
-- **[cook init](init.md)** - Initialize project
-- **[cook mold create](mold.md#create)** - Create template
-- **[cook version](version.md)** - Version information
-
-## See Also
-
-- [Development Tools Guide](../advanced.md#development-tools)
-- [Project Setup](../quickstart.md#project-setup)
-- [Best Practices](../advanced.md#best-practices)
-
----
-
-**Next:** [cook version](version.md) - Version information
+The `tool` commands provide essential development utilities that help with common tasks like code analysis, project structure visualization, license management, and HTTP status code reference.
+
+## Features
+
+### Lines of Code Counter
+- Counts lines by file extension
+- Respects `.gitignore` patterns
+- Excludes binary and non-code files automatically
+- Provides detailed breakdown and total count
+
+### Directory Tree
+- Visual tree structure with Unicode characters
+- Shows file sizes in human-readable format
+- Folder and file icons for better visualization
+- Supports exclusion patterns
+
+### License Management
+- Multiple open-source license templates
+- Interactive license generation
+- Customizable with project and author information
+- Supports MIT, Apache, GPL, BSD, and more
+
+### HTTP Status Codes
+- **Complete database**: 68+ status codes including official and unofficial codes
+- **Category browsing**: Informational (1xx), Success (2xx), Redirection (3xx), Client Error (4xx), Server Error (5xx), Unofficial
+- **Smart search**: Find codes by name, message, or partial matches
+- **Interactive interface**: Menu-driven selection for easy navigation
+- **Detailed information**: Each code includes category, name, and descriptive message
+- **Special codes**: Includes fun codes like 418 "I'm a Teapot" and unofficial vendor-specific codes
+- **Error handling**: Graceful handling of invalid codes and empty search results
+
+## Options
+
+### loc
+- `exclude`: List of directories/files to exclude from counting
+
+### tree
+- `exclude`: List of directories/files to exclude from tree display
+
+### licence
+No additional options (interactive mode only)
+
+### status
+- `code`: Specific status code to lookup (e.g., 404)
+- `--search, -s`: Search term for status codes
+- `--list, -l`: List all status codes
+- `--category, -c`: Browse by category
+
+## Notes
+
+- All tools respect common ignore patterns (`.gitignore`, `node_modules`, etc.)
+- File size calculations use human-readable formats (kB, MB, GB)
+- License templates include proper copyright notices and dates
+- Status code data includes official HTTP specifications
+- Tools work in any directory and don't require Cook project initialization

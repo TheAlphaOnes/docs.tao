@@ -1,536 +1,351 @@
-# cook run
+# Cook run
 
-Execute command groups defined in your cook.config.json file.
-
-## Synopsis
-
-```bash
-cook run <group> [OPTIONS]
-```
-
-## Description
-
-The `cook run` command executes a group of commands defined in your `cook.config.json` file. It runs commands sequentially, stopping if any command fails (unless configured otherwise).
-
-With the `--hot` flag, Cook watches for file changes and automatically reruns your commands, perfect for development workflows.
-
-## Arguments
-
-### group
-- **Type:** String (required)
-- **Description:** The name of the command group to execute
-- **Example:** `dev`, `build`, `test`, `deploy`
-
-## Options
-
-### --hot
-- **Type:** Boolean flag (optional)
-- **Description:** Enable hot reload mode - watch files and auto-restart on changes
-- **Default:** `false`
-- **Alias:** None
+Run command groups defined in your project's `cook.config.json` file.
 
 ## Usage
 
-### Basic Usage
+```bash
+cook run [GROUP] [OPTIONS]
+```
+
+## Arguments
+
+- `GROUP` (optional): Command group to run. If not specified, you'll be prompted to select from available groups.
+
+## Options
+
+- `--hot`: Enable hot reload/watch mode
+- `--verbose, -v`: Show detailed execution messages
+
+## Description
+
+The `run` command executes predefined command groups from your project's `cook.config.json` file. This is a convenient way to run common development tasks like starting servers, building projects, or running tests.
+
+## Examples
+
+### Interactive Group Selection
+
+When no group is specified, Cook CLI will show available command groups:
 
 ```bash
-$ cook run dev
+$ cook run
 
-→ Executing: npm install
-✔ Command succeeded: npm install
+Select command group to run:
+> serve
+  build
+  clean
 
+Running commands in group: serve
+pnpm run dev
+rm -rf ./cache
+```
+
+### Direct Group Execution
+
+Run a specific command group directly:
+
+```bash
+$ cook run build
+rm -rf ./dist
+rm -rf ./build
+pnpm run build
+```
+
+### Verbose Mode
+
+Show detailed execution information:
+
+```bash
+$ cook run serve --verbose
+Running commands in group: serve
 → Executing: npm run dev
-✔ Command succeeded: npm run dev
+> my-project@1.0.0 dev
+> vite
 
-✅ All commands completed successfully!
+  VITE v4.4.5  ready in 432 ms
+  ➜  Local:   http://localhost:5173/
+✔ Command succeeded: npm run dev
+→ Executing: rm -rf ./cache
+✔ Command succeeded: rm -rf ./cache
 ```
 
 ### Hot Reload Mode
 
-```bash
-$ cook run dev --hot
+Enable file watching and automatic command restart:
 
-✅ Starting hot reload for group: dev
+```bash
+$ cook run serve --hot
+✅ Starting hot reload for group: serve
 
 → Watching directory: .
 → Ignoring: node_modules, .git, dist
 
-→ Executing: npm install
-✔ Command succeeded: npm install
-
 → Executing: npm run dev
 ✔ Command succeeded: npm run dev
 
-👁️  Watching for changes...
+[Server running on http://localhost:5173]
 
-# Edit a file - commands auto-restart
+👁️  Watching for changes...
 
 📝 File changed: src/App.tsx
 
 → Restarting processes...
-→ Executing: npm install
-✔ Command succeeded: npm install
-
 → Executing: npm run dev
 ✔ Command succeeded: npm run dev
 
 👁️  Watching for changes...
 ```
 
-## Command Groups
+### Combined Options
 
-Command groups are defined in `cook.config.json`:
+Use verbose mode with hot reload:
+
+```bash
+cook run serve --hot --verbose
+```
+
+## Command Groups Configuration
+
+Command groups are defined in your `cook.config.json` file:
 
 ```json
 {
+  "name": "my-project",
   "cmd": {
-    "dev": [
-      "npm install",
-      "npm run dev"
+    "serve": [
+      "pnpm run dev",
+      "rm -rf ./cache"
     ],
     "build": [
-      "npm run lint",
-      "npm run test",
-      "npm run build"
+      "rm -rf ./dist",
+      "rm -rf ./build",
+      "pnpm run build"
     ],
-    "deploy": [
-      "npm run build",
-      "docker build -t myapp .",
-      "docker push myapp",
-      "./deploy.sh"
+    "clean": [
+      "rm -rf ./node_modules",
+      "rm -rf ./dist"
     ],
     "test": [
-      "npm run test",
-      "npm run coverage"
-    ]
-  }
-}
-```
-
-## Examples
-
-### Example 1: Development Workflow
-
-```bash
-# cook.config.json
-{
-  "cmd": {
-    "dev": [
-      "npm install",
-      "npm run dev"
-    ]
-  }
-}
-
-# Run development
-$ cook run dev --hot
-
-✅ Starting hot reload for group: dev
-→ Executing: npm install
-✔ Command succeeded
-
-→ Executing: npm run dev
-[Server running on http://localhost:3000]
-
-👁️  Watching for changes...
-```
-
-### Example 2: Build and Test
-
-```bash
-# cook.config.json
-{
-  "cmd": {
-    "ci": [
-      "npm run lint",
-      "npm run test",
-      "npm run build"
-    ]
-  }
-}
-
-# Run CI pipeline
-$ cook run ci
-
-→ Executing: npm run lint
-✔ Command succeeded: npm run lint
-
-→ Executing: npm run test
-✔ Command succeeded: npm run test
-
-→ Executing: npm run build
-✔ Command succeeded: npm run build
-
-✅ All commands completed successfully!
-```
-
-### Example 3: Multi-Service Startup
-
-```bash
-# cook.config.json
-{
-  "cmd": {
-    "services": [
-      "docker-compose up -d postgres redis",
-      "sleep 5",
-      "npm run migrate",
-      "npm run dev"
-    ]
-  }
-}
-
-$ cook run services --hot
-
-→ Executing: docker-compose up -d postgres redis
-✔ Command succeeded
-
-→ Executing: sleep 5
-✔ Command succeeded
-
-→ Executing: npm run migrate
-✔ Command succeeded
-
-→ Executing: npm run dev
-[Server started]
-
-👁️  Watching for changes...
-```
-
-### Example 4: Deployment Pipeline
-
-```bash
-# cook.config.json
-{
-  "cmd": {
-    "deploy": [
-      "npm run build",
-      "docker build -t myapp:latest .",
-      "docker tag myapp:latest registry.com/myapp:latest",
-      "docker push registry.com/myapp:latest",
-      "kubectl rollout restart deployment/myapp"
-    ]
-  }
-}
-
-$ cook run deploy
-
-→ Executing: npm run build
-✔ Command succeeded
-
-→ Executing: docker build -t myapp:latest .
-✔ Command succeeded
-
-→ Executing: docker tag myapp:latest registry.com/myapp:latest
-✔ Command succeeded
-
-→ Executing: docker push registry.com/myapp:latest
-✔ Command succeeded
-
-→ Executing: kubectl rollout restart deployment/myapp
-✔ Command succeeded
-
-✅ Deployment completed successfully!
-```
-
-## Hot Reload Mode
-
-### How It Works
-
-When you run `cook run <group> --hot`:
-
-1. Executes all commands in the group
-2. Starts watching the current directory for changes
-3. On file change, kills running processes
-4. Re-executes all commands in the group
-5. Repeats on each change
-
-### Watched Directories
-
-By default, Cook watches:
-- Current directory and all subdirectories
-- Excludes: `node_modules`, `.git`, `dist`, `build`, `.next`, `__pycache__`
-
-### Configuration
-
-Configure watch behavior in `cook.config.json`:
-
-```json
-{
-  "stir": {
-    "mode": "enabled",
-    "watch": {
-      "paths": ["src", "public"],
-      "ignore": ["*.log", "temp/*"]
-    }
-  }
-}
-```
-
-### Use Cases
-
-Hot reload is perfect for:
-- Development servers
-- File watchers
-- Build tools
-- Test runners
-- Database migrations during development
-
-## List Available Groups
-
-View all command groups in your project:
-
-```bash
-$ cook cmd list
-
-Available command groups in cook.config.json:
-
-  dev       - Development environment
-  build     - Production build
-  test      - Run tests
-  deploy    - Deploy to production
-  services  - Start all services
-```
-
-## Command Execution
-
-### Sequential Execution
-
-Commands run one after another:
-
-```json
-{
-  "cmd": {
-    "setup": [
-      "npm install",      // Runs first
-      "npm run build",    // Runs second
-      "npm run test"      // Runs third
-    ]
-  }
-}
-```
-
-### Failure Handling
-
-If a command fails, execution stops:
-
-```bash
-$ cook run build
-
-→ Executing: npm run lint
-✔ Command succeeded
-
-→ Executing: npm run test
-❌ Command failed: npm run test
-
-❌ Command group execution stopped due to error.
-```
-
-### Shell Commands
-
-All standard shell commands work:
-
-```json
-{
-  "cmd": {
-    "cleanup": [
-      "rm -rf dist",
-      "rm -rf node_modules",
-      "npm install",
-      "docker system prune -f"
-    ]
-  }
-}
-```
-
-## Troubleshooting
-
-### Command Group Not Found
-
-```bash
-$ cook run dev
-❌ Error: Command group 'dev' not found in cook.config.json
-```
-
-**Solution:**
-- Check available groups: `cook cmd list`
-- Add the group to `cook.config.json`
-- Verify spelling
-
-### cook.config.json Not Found
-
-```bash
-$ cook run dev
-❌ Error: cook.config.json not found in current directory
-```
-
-**Solution:**
-```bash
-# Initialize Cook in this directory
-cook init
-
-# Then add your command groups
-nano cook.config.json
-```
-
-### Command Fails
-
-```bash
-$ cook run build
-→ Executing: npm run build
-❌ Command failed: npm run build
-```
-
-**Solution:**
-- Check command syntax in `cook.config.json`
-- Run the command manually to debug
-- Check logs with `COOK_DEBUG=1 cook run build`
-
-### Hot Reload Not Working
-
-```bash
-$ cook run dev --hot
-# File changes don't trigger restart
-```
-
-**Solution:**
-- Ensure stir mode is enabled in `cook.config.json`
-- Check watched paths configuration
-- Verify files aren't in ignored directories
-- Try restarting the hot reload
-
-### Process Won't Stop
-
-```bash
-$ cook run dev --hot
-# Press Ctrl+C multiple times
-```
-
-**Solution:**
-- Press `Ctrl+C` to stop gracefully
-- If stuck, use `Ctrl+Z` then `kill %1`
-- Force kill: `pkill -f "cook run"`
-
-## Best Practices
-
-1. **Use descriptive group names**
-   ```json
-   {
-     "cmd": {
-       "dev": ["npm run dev"],           // Good
-       "prod-build": ["npm run build"],  // Good
-       "d": ["npm run dev"]              // Avoid
-     }
-   }
-   ```
-
-2. **Always use --hot for development**
-   ```bash
-   cook run dev --hot  # Auto-reload on changes
-   ```
-
-3. **Group related commands**
-   ```json
-   {
-     "cmd": {
-       "setup": [
-         "npm install",
-         "npm run db:migrate",
-         "npm run seed"
-       ]
-     }
-   }
-   ```
-
-4. **Add wait times for services**
-   ```json
-   {
-     "cmd": {
-       "services": [
-         "docker-compose up -d",
-         "sleep 10",
-         "npm run dev"
-       ]
-     }
-   }
-   ```
-
-5. **Use absolute paths when needed**
-   ```json
-   {
-     "cmd": {
-       "deploy": [
-         "npm run build",
-         "/usr/local/bin/deploy.sh"
-       ]
-     }
-   }
-   ```
-
-## Advanced Usage
-
-### Environment Variables
-
-Set environment variables in commands:
-
-```json
-{
-  "cmd": {
-    "dev": [
-      "export NODE_ENV=development",
-      "export PORT=3000",
-      "npm run dev"
+      "npm run test:unit",
+      "npm run test:e2e"
     ],
-    "prod": [
-      "export NODE_ENV=production",
-      "npm run build"
-    ]
-  }
-}
-```
-
-### Conditional Commands
-
-Use shell conditionals:
-
-```json
-{
-  "cmd": {
     "deploy": [
       "npm run build",
-      "[ -f deploy.sh ] && ./deploy.sh || echo 'No deploy script'"
+      "rsync -av dist/ user@server:/var/www/"
     ]
   }
 }
 ```
 
-### Piping and Redirection
+## Hot Reload Configuration
 
-Use shell features:
+### Basic Usage
+
+Use the `--hot` flag to enable file watching and automatic command restart:
+
+```bash
+cook run serve --hot
+```
+
+### Advanced Configuration
+
+Customize hot reload behavior by adding a `watch` section to your `cook.config.json`:
 
 ```json
 {
+  "name": "my-project",
   "cmd": {
-    "backup": [
-      "pg_dump mydb > backup.sql",
-      "tar -czf backup.tar.gz backup.sql",
-      "rm backup.sql"
-    ]
+    "serve": ["npm run dev"],
+    "build": ["npm run build"]
+  },
+  "watch": {
+    "directory": ".",
+    "patterns": ["**/*.js", "**/*.ts", "**/*.vue", "**/*.css"],
+    "ignore": ["node_modules", ".git", "dist", "build", "*.log"]
   }
 }
 ```
+
+### Configuration Options
+
+#### `directory` (string, default: ".")
+Root directory to watch for changes.
+
+#### `patterns` (array, optional)
+Specific file patterns to watch. Uses glob patterns.
+
+#### `ignore` (array, optional)
+Patterns to ignore during watching.
+
+### Example Configurations
+
+**React Development:**
+```json
+{
+  "watch": {
+    "directory": "./src",
+    "patterns": ["**/*.js", "**/*.jsx", "**/*.css"],
+    "ignore": ["*.test.js", "*.spec.js"]
+  }
+}
+```
+
+**Node.js API:**
+```json
+{
+  "watch": {
+    "directory": "./server",
+    "patterns": ["**/*.js", "**/*.json"],
+    "ignore": ["logs", "uploads", "*.test.js"]
+  }
+}
+```
+
+**Full-Stack Project:**
+```json
+{
+  "watch": {
+    "patterns": [
+      "server/**/*.js",
+      "client/src/**/*.js",
+      "shared/**/*.js"
+    ],
+    "ignore": ["node_modules", "dist", "build", "logs"]
+  }
+}
+```
+
+**Nuxt.js Project:**
+```json
+{
+  "watch": {
+    "directory": ".",
+    "patterns": ["**/*.js", "**/*.ts", "**/*.vue"],
+    "ignore": ["node_modules", ".git", "dist", ".nuxt", "public", ".output"]
+  }
+}
+```
+
+**Next.js Project:**
+```json
+{
+  "watch": {
+    "directory": ".",
+    "patterns": ["**/*.js", "**/*.ts", "**/*.jsx", "**/*.tsx"],
+    "ignore": ["node_modules", ".git", "dist", ".next", "public", "out"]
+  }
+}
+```
+
+## Common Command Groups
+
+### Development Server
+```json
+"serve": [
+  "npm run dev"
+]
+```
+
+### Production Build
+```json
+"build": [
+  "rm -rf dist",
+  "npm run build"
+]
+```
+
+### Testing
+```json
+"test": [
+  "npm run test:unit",
+  "npm run test:integration"
+]
+```
+
+### Cleanup
+```json
+"clean": [
+  "rm -rf node_modules",
+  "rm -rf dist",
+  "npm cache clean --force"
+]
+```
+
+### Deployment
+```json
+"deploy": [
+  "npm run build",
+  "docker build -t myapp .",
+  "docker push myapp:latest"
+]
+```
+
+### Database Operations
+```json
+"db:reset": [
+  "npm run db:drop",
+  "npm run db:create",
+  "npm run db:migrate",
+  "npm run db:seed"
+]
+```
+
+## Hot Reload Features
+
+When using `--hot` mode, Cook CLI will:
+
+1. **Execute commands**: Run the specified command group
+2. **Watch files**: Monitor file changes in your project directory
+3. **Auto-restart**: Automatically restart commands when files change
+4. **Smart ignoring**: Ignore common directories like `node_modules`, `.git`
+5. **Process management**: Properly terminate and restart processes
+
+### Watched File Types
+
+By default, hot reload watches:
+- Source code files (`.js`, `.ts`, `.jsx`, `.tsx`)
+- Style files (`.css`, `.scss`, `.less`)
+- Template files (`.vue`, `.svelte`, `.html`)
+- Configuration files (`.json`, `.yaml`, `.toml`)
+
+### Ignored Directories
+
+Hot reload automatically ignores:
+- `node_modules`
+- `.git`
+- `dist`
+- `build`
+- `.cache`
+- `coverage`
+
+## Error Handling
+
+- Commands continue executing even if one fails
+- Use `--verbose` to see detailed error information
+- Hot reload will attempt to restart even after command failures
+- Keyboard interrupt (Ctrl+C) stops all processes gracefully
+
+## Performance Tips
+
+1. **Use specific patterns**: Configure watch patterns to monitor only relevant files
+2. **Ignore build outputs**: Exclude generated files from watching
+3. **Optimize commands**: Use fast development builds in serve commands
+4. **Batch operations**: Group related commands together
+
+## Notes
+
+- Commands are executed in the order they appear in the group
+- Each command runs in the project's root directory
+- Environment variables from your shell are available to commands
+- Hot reload is ideal for development workflows
+- Use `cook cmd run` for the same functionality with additional options
+- Command groups are project-specific and stored in `cook.config.json`
+- You can create and modify command groups with `cook cmd add` and `cook cmd update`
 
 ## Related Commands
 
-- **[cook cmd list](cmd.md#list)** - List all command groups
-- **[cook init](init.md)** - Initialize cook.config.json
-- **[cook cmd sys](cmd.md#sys)** - Manage sys commands
-
-## See Also
-
-- [Command Execution Guide](../command-execution.md)
-- [Hot Reload Guide](../hot-reload.md)
-- [Configuration Reference](../configuration.md)
-
----
-
-**Next:** [cook auth](auth.md) - Authentication commands
+- `cook cmd run`: Alternative command with same functionality
+- `cook cmd list`: View all available command groups
+- `cook cmd add`: Add new command groups
+- `cook cmd update`: Modify existing command groups
+- `cook init`: Initialize project with default command groups

@@ -1,24 +1,23 @@
 {
-    "name": "DOCS.TAO",
-    "author": "thenormvg",
-    "stir": true,
-    "cmd": {
-        "serve": [
-            "pnpm run dev"
-        ],
-        "build": [
-            "pnpm run build"
-        ],
-        "clean": [
-            "pnpm"
-        ]
-    },
-    "template": {
-        "name": "",
-        "category": "",
-        "date": "",
-        "author": "",
-        "stack": [],
-        "github": ""
-    }
+  "name": "DOCS.TAO",
+  "author": "thenormvg",
+  "stir": true,
+  "cmd": {
+    "serve": ["pnpm run dev"],
+    "build": ["pnpm run build"],
+    "clean": ["pnpm"]
+  },
+  "template": {
+    "name": "",
+    "category": "",
+    "date": "",
+    "author": "",
+    "stack": [],
+    "github": ""
+  },
+  "watch": {
+    "directory": ".",
+    "patterns": ["**/*.js", "**/*.ts"],
+    "ignore": ["node_modules", ".git", "dist",".nuxt", "public"]
+  }
 }
