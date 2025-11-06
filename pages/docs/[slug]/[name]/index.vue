@@ -99,13 +99,14 @@ useSeoMeta({
 <style scoped>
 main{
   padding: 0px 20px;
-
+  max-width: 100%;
+  overflow-x: hidden;
+  box-sizing: border-box;
 }
 
 @media only screen and (max-width: 768px) {
 main{
   padding: 0px 5px;
-
 }
 }
 

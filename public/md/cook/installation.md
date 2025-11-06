@@ -2,17 +2,50 @@
 
 Complete installation instructions for Cook CLI across all operating systems.
 
-## Quick Install
+## Quick Install (Recommended)
 
-### Prerequisites
+### Download Pre-built Executables
 
-Cook CLI requires Python 3.7 or higher:
-
+**Windows:**
 ```bash
-python3 --version
+# Download and extract
+curl -L -o cook-win.zip \
+  https://github.com/TheAlphaOnes/cook-cli/releases/download/v1.0.0-alpha.1/cook-win.zip
+unzip cook-win.zip
+cd cook
+
+# Run Cook CLI
+./cook.exe --help
+```
+
+**macOS:**
+```bash
+# Download and extract
+curl -L -o cook-mac.zip \
+  https://github.com/TheAlphaOnes/cook-cli/releases/download/v1.0.0-alpha.1/cook-mac.zip
+unzip cook-mac.zip
+cd cook
+
+# Run Cook CLI
+./cook --help
+```
+
+**Linux:**
+```bash
+# Download and extract (use macOS build for now)
+curl -L -o cook-linux.zip \
+  https://github.com/TheAlphaOnes/cook-cli/releases/download/v1.0.0-alpha.1/cook-mac.zip
+unzip cook-linux.zip
+cd cook
+
+# Make executable and run
+chmod +x cook
+./cook --help
 ```
 
 ### Install from Source
+
+**If you prefer to build from source or need the latest development version:**
 
 ```bash
 # Clone repository
@@ -26,69 +59,57 @@ pip install -r requirements.txt
 python3 main.py --help
 ```
 
+📋 **[Building Guide](/docs/COOK/cook-building)** - Build from source
+
 ---
 
 ## Platform Installation
 
 ### Linux (Ubuntu/Debian)
 
-**Method 1: Package Manager**
+**Method 1: Pre-built Executable (Recommended)**
 
 ```bash
-# Update packages
-sudo apt update
+# Download and extract
+wget -O cook-linux.zip \
+  https://github.com/TheAlphaOnes/cook-cli/releases/download/v1.0.0-alpha.1/cook-mac.zip
+unzip cook-linux.zip
+cd cook
 
-# Install Python and Git
-sudo apt install python3 python3-pip git
+# Make executable
+chmod +x cook
 
-# Clone and install
-git clone https://github.com/TheAlphaOnes/cook-cli.git
-cd cook-cli
-pip3 install -r requirements.txt
-
-# Optional: Global access
-sudo ln -sf $(pwd)/main.py /usr/local/bin/cook
-chmod +x /usr/local/bin/cook
-```
-
-**Method 2: Virtual Environment**
-
-```bash
-# Install virtual environment
-sudo apt install python3-venv
-
-# Create environment
-python3 -m venv cook-env
-source cook-env/bin/activate
-
-# Install Cook CLI
-git clone https://github.com/TheAlphaOnes/cook-cli.git
-cd cook-cli
-pip install -r requirements.txt
-```
-
-**Method 3: Build Executable**
-
-```bash
-# Install PyInstaller
-pip3 install pyinstaller
-
-# Clone and build
-git clone https://github.com/TheAlphaOnes/cook-cli.git
-cd cook-cli
-pip3 install -r requirements.txt
-pyinstaller cook.spec --clean
-
-# Use executable
-./dist/cook/cook --help
+# Test installation
+./cook --help
 
 # Optional: Install globally
-sudo cp dist/cook/cook /usr/local/bin/
+sudo cp cook /usr/local/bin/
 ```
+
+📋 **[Building Guide](/docs/COOK/cook-building)** - Build from source
 
 ### macOS
 
-**Method 1: Homebrew**
+**Method 1: Pre-built Executable (Recommended)**
+
+```bash
+# Download and extract
+curl -L -o cook-mac.zip \
+  https://github.com/TheAlphaOnes/cook-cli/releases/download/v1.0.0-alpha.1/cook-mac.zip
+unzip cook-mac.zip
+cd cook
+
+# Test installation
+./cook --help
+
+# Optional: Install globally
+sudo cp cook /usr/local/bin/
+
+# Optional: Remove quarantine (if needed)
+xattr -dr com.apple.quarantine cook
+```
+
+**Method 2: Build from Source**
 
 ```bash
 # Install Homebrew (if needed)
@@ -103,49 +124,36 @@ git clone https://github.com/TheAlphaOnes/cook-cli.git
 cd cook-cli
 pip3 install -r requirements.txt
 
-# Optional: Create alias
-COOK_PATH="$(pwd)/main.py"
-echo "alias cook='python3 $COOK_PATH'" >> ~/.zshrc
-source ~/.zshrc
+# Run Cook CLI
+python3 main.py --help
 ```
 
-**Method 2: MacPorts**
-
-```bash
-# Install Python via MacPorts
-sudo port install python39 py39-pip git
-
-# Clone and install
-git clone https://github.com/TheAlphaOnes/cook-cli.git
-cd cook-cli
-pip3.9 install -r requirements.txt
-```
-
-**Method 3: Build macOS App**
-
-```bash
-# Install PyInstaller
-pip3 install pyinstaller
-
-# Build application
-git clone https://github.com/TheAlphaOnes/cook-cli.git
-cd cook-cli
-pip3 install -r requirements.txt
-pyinstaller cook.spec --clean
-
-# Use app
-./dist/cook/cook --help
-
-# Optional: Move to Applications
-cp -r dist/cook /Applications/Cook.app
-```
+📋 **[Building Guide](/docs/COOK/cook-building)** - Build from source
 
 ### Windows
 
-**Method 1: Microsoft Store Python**
+**Method 1: Pre-built Executable (Recommended)**
 
 ```powershell
-# Install Python from Microsoft Store
+# Download and extract
+$BaseUrl = "https://github.com/TheAlphaOnes/cook-cli/releases/download"
+$Version = "v1.0.0-alpha.1"
+$DownloadUrl = "$BaseUrl/$Version/cook-win.zip"
+Invoke-WebRequest -Uri $DownloadUrl -OutFile "cook-win.zip"
+Expand-Archive -Path "cook-win.zip" -DestinationPath "."
+cd cook
+
+# Test installation
+.\cook.exe --help
+
+# Optional: Add to PATH
+$env:PATH += ";$(Get-Location)"
+```
+
+**Method 2: Build from Source**
+
+```powershell
+# Install Python from Microsoft Store or python.org
 # Then in PowerShell or Command Prompt:
 
 # Clone and install
@@ -157,54 +165,7 @@ pip install -r requirements.txt
 python main.py --help
 ```
 
-**Method 2: Chocolatey**
-
-```powershell
-# Install Chocolatey (run as Administrator)
-Set-ExecutionPolicy Bypass -Scope Process -Force
-
-$SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol
-[System.Net.ServicePointManager]::SecurityProtocol = $SecurityProtocol -bor 3072
-
-$InstallScript = 'https://community.chocolatey.org/install.ps1'
-iex ((New-Object System.Net.WebClient).DownloadString($InstallScript))
-
-# Install dependencies
-choco install python3 git
-refreshenv
-
-# Clone and install
-git clone https://github.com/TheAlphaOnes/cook-cli.git
-cd cook-cli
-pip install -r requirements.txt
-```
-
-**Method 3: Build Windows Executable**
-
-```powershell
-# Install PyInstaller
-pip install pyinstaller
-
-# Build executable
-git clone https://github.com/TheAlphaOnes/cook-cli.git
-cd cook-cli
-pip install -r requirements.txt
-pyinstaller cook.spec --clean
-
-# Use executable
-.\dist\cook\cook.exe --help
-```
-
-**Method 4: WSL (Windows Subsystem for Linux)**
-
-```bash
-# In WSL terminal, follow Linux instructions:
-sudo apt update
-sudo apt install python3 python3-pip git
-git clone https://github.com/TheAlphaOnes/cook-cli.git
-cd cook-cli
-pip3 install -r requirements.txt
-```
+📋 **[Building Guide](/docs/COOK/cook-building)** - Build from source
 
 ---
 
@@ -241,83 +202,23 @@ python main.py --help
 
 ---
 
-## Docker Installation
-
-### Using Docker
-
-```bash
-# Create Dockerfile
-cat > Dockerfile << EOF
-FROM python:3.9-slim
-
-WORKDIR /app
-
-RUN apt-get update && \
-    apt-get install -y git && \
-    rm -rf /var/lib/apt/lists/*
-
-RUN git clone https://github.com/TheAlphaOnes/cook-cli.git .
-
-RUN pip install -r requirements.txt
-
-RUN echo '#!/bin/bash\npython3 main.py "$@"' > /usr/local/bin/cook && \
-    chmod +x /usr/local/bin/cook
-
-ENTRYPOINT ["cook"]
-EOF
-
-# Build image
-docker build -t cook-cli .
-
-# Run Cook CLI
-docker run --rm cook-cli --help
-
-# Create alias
-DOCKER_CMD="docker run --rm -v \$(pwd):/workspace -w /workspace cook-cli"
-echo "alias cook='$DOCKER_CMD'" >> ~/.bashrc
-source ~/.bashrc
-```
-
-### Using Docker Compose
-
-```yaml
-# docker-compose.yml
-version: '3.8'
-
-services:
-  cook:
-    build: .
-    volumes:
-      - .:/workspace
-    working_dir: /workspace
-    stdin_open: true
-    tty: true
-```
-
-```bash
-# Run with Docker Compose
-docker-compose run --rm cook --help
-```
-
----
-
 ## Verification
 
 After installation, verify Cook CLI works:
 
 ```bash
-# Check version
-cook version
+# Check version (use ./cook on Linux/macOS, .\cook.exe on Windows)
+./cook version
 
 # Initialize test project
 mkdir test-cook && cd test-cook
-cook init
+../cook init  # Adjust path as needed
 
 # List commands
-cook --help
+./cook --help
 
 # Test authentication (optional)
-cook auth now
+./cook auth now
 ```
 
 Expected output:

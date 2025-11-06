@@ -146,14 +146,24 @@ watch(() => props.md, () => {
 </script>
 
 <template>
-  <div class="markdown-content reveal" ref="contentRef">
-    <div class="prose max-w-none" v-html="html" />
+  <div class="markdown-wrapper">
+    <div class="markdown-content reveal" ref="contentRef">
+      <div class="prose max-w-none" v-html="html" />
+    </div>
   </div>
 </template>
 
 <style>
 /* Import highlight.js CSS directly (same as debug page) */
 @import 'highlight.js/styles/github-dark.css';
+
+.markdown-wrapper {
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
+  width: 100%;
+  box-sizing: border-box;
+}
 
 .markdown-content {
   font-weight: 400;
@@ -162,6 +172,9 @@ watch(() => props.md, () => {
   user-select: text;
   color: #e6edf3;
   line-height: 1.6;
+  max-width: 100%;
+  overflow-x: hidden;
+  word-wrap: break-word;
 }
 
 /* Typography */
@@ -205,6 +218,8 @@ watch(() => props.md, () => {
 .markdown-content a {
   color: var(--yellow);
   text-decoration: none;
+  word-break: break-all;
+  overflow-wrap: break-word;
 }
 
 .markdown-content a:hover {
@@ -252,10 +267,14 @@ watch(() => props.md, () => {
   border-radius: 6px;
   padding: 16px;
   overflow-x: auto;
+  overflow-y: hidden;
   margin: 16px 0;
   font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   font-size: 14px;
   line-height: 1.45;
+  max-width: calc(100vw - 100px);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .markdown-content pre code {
@@ -274,6 +293,8 @@ watch(() => props.md, () => {
   border-radius: 6px;
   font-size: 85%;
   font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  word-break: break-all;
+  overflow-wrap: break-word;
 }
 
 /* Override inline code styles for code blocks */
@@ -362,6 +383,16 @@ watch(() => props.md, () => {
   border: 1px solid #30363d;
   border-radius: 6px;
   overflow: hidden;
+  max-width: 100%;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.markdown-content table tbody,
+.markdown-content table thead {
+  display: table;
+  width: 100%;
 }
 
 .markdown-content th,
